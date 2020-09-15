@@ -13,7 +13,7 @@ namespace NewScreenSaver.RFIDModul
 
         private DateTime _lastReadData;
 
-        private readonly TimeSpan _waitRead = new TimeSpan(0, 0, 0, 0, 1500);
+        private readonly TimeSpan _waitRead = new TimeSpan(0, 0, 0, 0, 1100);
 
         public RFIDScanCrem(int baudRate, Authentificators auth) : base(baudRate, auth) { }
 
@@ -25,7 +25,7 @@ namespace NewScreenSaver.RFIDModul
                 {
                     if (!IsOpen)
                     {
-                        System.Threading.Thread.Sleep(10);
+                        System.Threading.Thread.Sleep(1);
                         _lastReadData = DateTime.Now;
                         _serialPort.DataReceived += SerialPort_DataReceived;
                         _serialPort.Open();

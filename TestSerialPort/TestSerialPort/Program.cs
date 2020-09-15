@@ -20,6 +20,7 @@ namespace TestSerialPort
         static void Main(string[] args)
         {
             SerialPort mySerialPort = new SerialPort("COM13");
+            var f = SerialPort.GetPortNames();
             var d =  ViewReadCard.ironlogic.ToString();
             mySerialPort.BaudRate = 38400;
             mySerialPort.Parity = Parity.None;

@@ -111,11 +111,13 @@ namespace NewScreenSaver
                 (char)Keys.I, (char)Keys.J, (char)Keys.K, (char)Keys.L, (char)Keys.M, (char)Keys.N, (char)Keys.O, (char)Keys.P,
                 (char)Keys.Q, (char)Keys.R, (char)Keys.S, (char)Keys.T, (char)Keys.U, (char)Keys.V, (char)Keys.W, (char)Keys.X,
                 (char)Keys.Y, (char)Keys.Z, (char)Keys.OemMinus, (char)Keys.D0, (char)Keys.D1, (char)Keys.D2, (char)Keys.D3,
-                (char)Keys.D4, (char)Keys.D5, (char)Keys.D6, (char)Keys.D7, (char)Keys.D8, (char)Keys.D9};
-        private static char[] allowedCharsArray = new char[] {
-                'A','a', 'B','b', 'C','c', 'D','d', 'E','e', 'F','f', 'G','g', 'H','h', 'I','i', 'J','j', 'K','k',
-                'L','l', 'M','m', 'N','n', 'O','o', 'P','p', 'Q','q', 'R','r', 'S','s', 'T','t', 'U','u', 'V','v',
-                'W','w', 'X','x', 'Y','y', 'Z','z', '_', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+                (char)Keys.D4, (char)Keys.D5, (char)Keys.D6, (char)Keys.D7, (char)Keys.D8, (char)Keys.D9,(char)Keys.NumPad0, (char)Keys.NumPad1,
+                (char)Keys.NumPad2, (char)Keys.NumPad3, (char)Keys.NumPad4, (char)Keys.NumPad5, (char)Keys.NumPad6, (char)Keys.NumPad7,
+                (char)Keys.NumPad8, (char)Keys.NumPad9, (char)Keys.CapsLock, (char)Keys.Back, (char)Keys.Enter};
+        //private static char[] allowedCharsArray = new char[] {
+        //        'A','a', 'B','b', 'C','c', 'D','d', 'E','e', 'F','f', 'G','g', 'H','h', 'I','i', 'J','j', 'K','k',
+        //        'L','l', 'M','m', 'N','n', 'O','o', 'P','p', 'Q','q', 'R','r', 'S','s', 'T','t', 'U','u', 'V','v',
+        //        'W','w', 'X','x', 'Y','y', 'Z','z', '_', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
         /// <summary>
         /// Если = true, то при загрузке главной формы приложения, загрузка приложения отменяется
@@ -156,6 +158,7 @@ namespace NewScreenSaver
             // Инициализация компонентов на главной форме
             // ------------------------------------------
             InitializeComponent();
+            MaxStateWindows();
             this.DataContext = VisibleInterfaceModel;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             logFilePath = ConfigurationManager.AppSettings[@"logFilePath"];
@@ -482,7 +485,7 @@ namespace NewScreenSaver
                 // завершаем работу приложения
                 if ((this.loginCombo.Text.ToUpper() == "TSS") && (this.passwordBox.Password.ToUpper() == "CLOSE"))
                 {
-                    try { /*actHook.Stop();*/ }
+                    try { actHook.Stop(); }
                     catch { }
                     try { authTimer_Closetaskmgr.Stop(); }
                     catch { }
@@ -614,7 +617,7 @@ namespace NewScreenSaver
             // Если перехват ввода-вывода клавиатуры и мыши остановить не удается, то приложение немедленно завершаем
             try
             {
-               // actHook.Stop();
+                 actHook.Stop();
                 authTimer_Closetaskmgr.Stop();
             } // try
             catch (Exception _ex)
@@ -730,17 +733,23 @@ namespace NewScreenSaver
 
         }
 
+        private void MaxStateWindows()
+        {
+            this.Width = System.Windows.SystemParameters.VirtualScreenWidth;
+            this.Height = System.Windows.SystemParameters.VirtualScreenHeight;
+            this.Left = 0;
+            this.Top = 0;
+            this.DrawCanvas.Margin = new Thickness((System.Windows.SystemParameters.PrimaryScreenWidth - this.DrawCanvas.Width) / 2,
+                                                   (System.Windows.SystemParameters.PrimaryScreenHeight - this.DrawCanvas.Height) / 2, 0, 0);
+        }
+
         private void SetMainWindowState(bool inp_authState)
         {
             if (inp_authState == true)
             {
-
                 Show(); //System.Windows.Application.Current.Shutdown();
-                this.Width = System.Windows.SystemParameters.VirtualScreenWidth;
-                this.Height = System.Windows.SystemParameters.VirtualScreenHeight;
-                this.Left = 0;
-                this.Top = 0;
-               //  WindowState =  System.Windows.WindowState.Maximized;
+                MaxStateWindows();
+                //WindowState =  System.Windows.WindowState.Maximized;
                 taskbarIcon.Visibility = System.Windows.Visibility.Hidden;
                // showToolStripMenuItem.Enabled = false;
             } // if
@@ -793,18 +802,18 @@ namespace NewScreenSaver
             // --------------------------------------------------
             try
             {
-                //if (actHook == null)
-                //{
-                //    actHook = new UserActivityHook(new System.Drawing.Rectangle(0, 0, (int)System.Windows.SystemParameters.PrimaryScreenWidth, (int)System.Windows.SystemParameters.PrimaryScreenHeight));
+                if (actHook == null)
+                {
+                    actHook = new UserActivityHook(new System.Drawing.Rectangle(0, 0, (int)System.Windows.SystemParameters.VirtualScreenWidth, (int)System.Windows.SystemParameters.VirtualScreenHeight));
 
-                //    actHook.OnMouseActivity += new System.Windows.Forms.MouseEventHandler(MouseMoved);
-                //    actHook.KeyDown += new System.Windows.Forms.KeyEventHandler(MyKeyDown);
-                //    actHook.KeyPress += new System.Windows.Forms.KeyPressEventHandler(MyKeyPress);
-                //    actHook.KeyUp += new System.Windows.Forms.KeyEventHandler(MyKeyUp);
-                //} // if
+                    actHook.OnMouseActivity += new System.Windows.Forms.MouseEventHandler(MouseMoved);
+                    actHook.KeyDown += new System.Windows.Forms.KeyEventHandler(MyKeyDown);
+                    actHook.KeyPress += new System.Windows.Forms.KeyPressEventHandler(MyKeyPress);
+                    actHook.KeyUp += new System.Windows.Forms.KeyEventHandler(MyKeyUp);
+                } // if
 
-                //else
-                //    actHook.Start();
+                else
+                    actHook.Start();
 
             } // try
             catch (Exception _ex)
@@ -816,7 +825,7 @@ namespace NewScreenSaver
                 // Сохраняем сообщение об ошибке в LOG-файле
                 SaveMessInFile(DateTime.Now.ToString() + ": " + _ex.Message, "SetHook", "751");
 
-                try { /*actHook.Stop();*/ }
+                try { actHook.Stop(); }
                 catch { }
 
                 try { authTimer_Closetaskmgr.Stop(); }
@@ -860,49 +869,42 @@ namespace NewScreenSaver
 
         private void MyKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            // Отпущена недопустимая клавиша
-            // -----------------------------
-            if ((Array.IndexOf(allowedSymbolsArray, (char)e.KeyData) < 0) &&
-                              ((char)e.KeyData != (char)Keys.Capital) && ((char)e.KeyData != (char)Keys.Tab) &&
-                              ((char)e.KeyData != (char)Keys.Left) && ((char)e.KeyData != (char)Keys.Right) &&
-                              ((char)e.KeyData != (char)Keys.Up) && ((char)e.KeyData != (char)Keys.Down) &&
-                              ((char)e.KeyData != (char)Keys.LMenu) && ((char)e.KeyData != (char)Keys.RMenu) &&
-                              ((char)e.KeyData != (char)Keys.Enter) && ((char)e.KeyData != (char)Keys.Back))
+            if ((Array.IndexOf(allowedSymbolsArray, (char)e.KeyData) < 0))
             {
                 e.Handled = true;
             }
             // Отпущена допустимая клавиша
             // ---------------------------
-            else
-            {
-                if ((System.Windows.Forms.Control.ModifierKeys & Keys.Alt) == Keys.Alt)
-                {
-                    if ((char)e.KeyData == (char)Keys.Tab)
-                    {
-                        e.Handled = true;
-                    }
+            //else
+            //{
+            //    if (e.Alt)
+            //    {
+            //        if ((char)e.KeyData == (char)Keys.Tab)
+            //        {
+            //            e.Handled = true;
+            //        }
 
-                    if (((char)e.KeyData == (char)Keys.LControlKey) || ((char)e.KeyData == (char)Keys.RControlKey))
-                    {
-                        e.Handled = true;
-                    }
+            //        if (((char)e.KeyData == (char)Keys.LControlKey) || ((char)e.KeyData == (char)Keys.RControlKey))
+            //        {
+            //            e.Handled = true;
+            //        }
 
-                }
-                if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Control)
-                {
-                    if (((char)e.KeyData == (char)Keys.LMenu) || ((char)e.KeyData == (char)Keys.RMenu))
-                    {
-                        e.Handled = true;
-                    }
-                }
-                if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Shift)
-                {
-                    if (((char)e.KeyData == (char)Keys.LMenu) || ((char)e.KeyData == (char)Keys.RMenu))
-                    {
-                        e.Handled = true;
-                    }
-                }
-            }
+            //    }
+            //    if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Control)
+            //    {
+            //        if (((char)e.KeyData == (char)Keys.LMenu) || ((char)e.KeyData == (char)Keys.RMenu))
+            //        {
+            //            e.Handled = true;
+            //        }
+            //    }
+            //    if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Shift)
+            //    {
+            //        if (((char)e.KeyData == (char)Keys.LMenu) || ((char)e.KeyData == (char)Keys.RMenu))
+            //        {
+            //            e.Handled = true;
+            //        }
+            //    }
+            //}
         }
         
         private void MyKeyPress(object sender, KeyPressEventArgs e)
@@ -913,101 +915,90 @@ namespace NewScreenSaver
             //}
             //// Нажата допустимая клавиша
             //// -------------------------
-
             //else
             //{
-            if ((System.Windows.Forms.Control.ModifierKeys & Keys.Alt) == Keys.Alt)
-            {
-                if (e.KeyChar == (char)Keys.Tab)
-                {
-                    e.Handled = true;
-                }
+            //if ((System.Windows.Forms.Control.ModifierKeys & Keys.Alt) == Keys.Alt)
+            //{
+            //    if (e.KeyChar == (char)Keys.Tab)
+            //    {
+            //        e.Handled = true;
+            //    }
 
-                else if ((e.KeyChar == (char)Keys.LControlKey) || (e.KeyChar == (char)Keys.RControlKey))
-                {
-                    e.Handled = true;
-                }
+            //    else if ((e.KeyChar == (char)Keys.LControlKey) || (e.KeyChar == (char)Keys.RControlKey))
+            //    {
+            //        e.Handled = true;
+            //    }
 
-            }
-            if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Control)
-            {
-                if ((e.KeyChar == (char)Keys.LMenu) || (e.KeyChar == (char)Keys.RMenu))
-                {
-                    e.Handled = true;
-                }
-            }
-            if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Shift)
-            {
-
-                if ((e.KeyChar == (char)Keys.LMenu) || (e.KeyChar == (char)Keys.RMenu))
-                {
-                    e.Handled = true;
-                }
-            }
             //}
+            //if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Control)
+            //{
+            //    if ((e.KeyChar == (char)Keys.LMenu) || (e.KeyChar == (char)Keys.RMenu))
+            //    {
+            //        e.Handled = true;
+            //    }
+            //}
+            //if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Shift)
+            //{
+
+            //    if ((e.KeyChar == (char)Keys.LMenu) || (e.KeyChar == (char)Keys.RMenu))
+            //    {
+            //        e.Handled = true;
+            //    }
+            //}
+            ////}
         }
 
         private void MouseMoved(object sender, System.Windows.Forms.MouseEventArgs e) { }
 
         private void MyKeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-
-
-        
-
             // Нажата недопустимая клавиша
-            // ---------------------------     
-            if ((Array.IndexOf(allowedSymbolsArray, (char)e.KeyData) < 0) &&
-                  ((char)e.KeyData != (char)Keys.Capital)  && ((char)e.KeyData != (char)Keys.Tab) &&
-                  ((char)e.KeyData != (char)Keys.Left) && ((char)e.KeyData != (char)Keys.Right) &&
-                  ((char)e.KeyData != (char)Keys.Up) && ((char)e.KeyData != (char)Keys.Down) &&
-                  ((char)e.KeyData != (char)Keys.LMenu) && ((char)e.KeyData != (char)Keys.RMenu) &&
-                  ((char)e.KeyData != (char)Keys.Enter) && ((char)e.KeyData != (char)Keys.Back))
+            // ---------------------------    
+            if ((Array.IndexOf(allowedSymbolsArray, (char)e.KeyData) < 0))
             {
                 e.Handled = true;
             }
+            //
             // Нажата допустимая клавиша
             // -------------------------    
-            else
-            {
-                if (e.KeyValue == 164 || e.KeyValue == 165)
-                {
-                    //loginCombo.Focus();
-                    //lastAltClickTime = DateTime.Now;
-                    e.Handled = true;
-                }
+            //else
+            //{
+            //    if (e.KeyValue == 164 || e.KeyValue == 165)
+            //    {
+            //        //loginCombo.Focus();
+            //        //lastAltClickTime = DateTime.Now;
+            //        e.Handled = true;
+            //    }
+            //if (e.Alt)
+            //{
+            //    //
+            //    if ((char)e.KeyData == (char)Keys.Tab)
+            //    {
+            //        e.Handled = true;
+            //    }
 
-                if ((System.Windows.Forms.Control.ModifierKeys & Keys.Alt) == Keys.Alt)
-                {
-                    //
-                    if ((char)e.KeyData == (char)Keys.Tab)
-                    {
-                        e.Handled = true;
-                    }
+            //    else if (((char)e.KeyData == (char)Keys.LControlKey) || ((char)e.KeyData == (char)Keys.RControlKey))
+            //    {
+            //        e.Handled = true;
+            //    }
+            //}
 
-                    else if (((char)e.KeyData == (char)Keys.LControlKey) || ((char)e.KeyData == (char)Keys.RControlKey))
-                    {
-                        e.Handled = true;
-                    }
+            //    if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Control)
+            //    {
+            //        if (((char)e.KeyData == (char)Keys.LMenu) || ((char)e.KeyData == (char)Keys.RMenu))
+            //        {
+            //            e.Handled = true;
+            //        }
+            //    }
 
-                }
-
-                if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Control)
-                {
-                    if (((char)e.KeyData == (char)Keys.LMenu) || ((char)e.KeyData == (char)Keys.RMenu))
-                    {
-                        e.Handled = true;
-                    }
-                }
-
-                if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Shift)
-                {
-                    if (((char)e.KeyData == (char)Keys.LMenu) || ((char)e.KeyData == (char)Keys.RMenu))
-                    {
-                        e.Handled = true;
-                    }
-                }
-            }
+            //    if ((System.Windows.Forms.Control.ModifierKeys & Keys.Control) == Keys.Shift)
+            //    {
+            //        if (((char)e.KeyData == (char)Keys.LMenu) || ((char)e.KeyData == (char)Keys.RMenu))
+            //        {
+            //            e.Handled = true;
+            //        }
+            //    }
+            //}
         }
 
 
@@ -1171,15 +1162,15 @@ namespace NewScreenSaver
             if(RFIDScan != null)
                 RFIDScan.Stop();
 
-            // 2) Hook
-            //if (actHook != null)
-            //{
-            //    try { actHook.Stop(); }
-            //    catch { }
+           // 2) Hook
+            if (actHook != null)
+            {
+                try { actHook.Stop(); }
+                catch { }
 
-            //    actHook = null;
+                actHook = null;
 
-            //} // if
+            } // if
 
             if (OtherScreen != null)
                 OtherScreen.Stop();

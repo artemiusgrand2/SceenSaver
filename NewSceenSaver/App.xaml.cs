@@ -34,22 +34,16 @@ namespace NewSceenSaver
             catch (Exception _ex)
             {
                 MessageBox.Show(_ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Shutdown();
+                Application.Current.Shutdown();
             }
             if (_mutexWasCreated == false)
             {
                 MessageBox.Show("Данная программа уже запущена!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Shutdown();
+                Application.Current.Shutdown();
             }
-
             // ---------------------------
-
-            if (mutex != null)
-                mutex.ReleaseMutex();
-
-
+            //if (mutex != null)
+            //    mutex.ReleaseMutex();
         }
-
-
     }
 }

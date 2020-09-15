@@ -5,11 +5,11 @@
     <Border>
         <Grid >
 
-            <Canvas Name="DrawCanvas"  VerticalAlignment="Center"   HorizontalAlignment="Center" Height="180" Width="265" >
+            <Canvas Name="DrawCanvas"  Height="180" Width="265" HorizontalAlignment="Left" VerticalAlignment="Top">
 
                 <Rectangle Name="RecRamka" Height="180" Width="265"  ToolTip="Статус подключения к считывателю"  Stroke="Silver" Fill="{StaticResource SelectedBackgroundBrush}"  RadiusX="5" RadiusY="5" StrokeThickness="4" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-                <Rectangle Name="RecIcon" Height="7" Width="7" Stroke="Transparent"  Margin="5,5" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <Rectangle Name="RecIcon" Height="7" Width="7" Stroke="Transparent"  Margin="5,5"  >
 
                     <Rectangle.Style>
 
