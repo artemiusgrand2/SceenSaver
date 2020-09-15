@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserRegTool", "UserRegTool\UserRegTool.csproj", "{00D53AAA-DE84-4B4D-8E58-5C1A1434982F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentificator", "..\Authentificator\Authentificator\Authentificator.csproj", "{8B8E2D7C-2747-4EE2-BFE3-FA200C1A15C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00D53AAA-DE84-4B4D-8E58-5C1A1434982F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00D53AAA-DE84-4B4D-8E58-5C1A1434982F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00D53AAA-DE84-4B4D-8E58-5C1A1434982F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00D53AAA-DE84-4B4D-8E58-5C1A1434982F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B8E2D7C-2747-4EE2-BFE3-FA200C1A15C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B8E2D7C-2747-4EE2-BFE3-FA200C1A15C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B8E2D7C-2747-4EE2-BFE3-FA200C1A15C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B8E2D7C-2747-4EE2-BFE3-FA200C1A15C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,112 @@
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\MainWindow.baml
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\Themes\ExpressionLight.baml
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\MainWindow.g.cs
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver_MarkupCompile.cache
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\App.baml
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\App.g.cs
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.g.resources
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.Properties.Resources.resources
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.csproj.GenerateResource.Cache
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.exe
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.pdb
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.exe
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.pdb
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.csprojResolveAssemblyReference.cache
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Authentificator.dll
+c:\users\артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Authentificator.pdb
+C:\Users\Артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.exe.config
+C:\Users\Артем\documents\visual studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\FilesProcessingLib.dll
+C:\Users\Артем\Documents\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll
+C:\Users\Артем\Documents\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Hardcodet.Wpf.TaskbarNotification.pdb
+C:\Users\Артем\Documents\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver_MarkupCompile.lref
+C:\Users\Артем\Documents\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.exe.config
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.exe
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.pdb
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.exe
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.pdb
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Authentificator.dll
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\FilesProcessingLib.dll
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Authentificator.pdb
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Hardcodet.Wpf.TaskbarNotification.pdb
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\MainWindow.baml
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\App.baml
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\MainWindow.g.cs
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\App.g.cs
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver_MarkupCompile.cache
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver_MarkupCompile.lref
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\Themes\ExpressionLight.baml
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.g.resources
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.Properties.Resources.resources
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.csprojResolveAssemblyReference.cache
+d:\Distributiv\Visual Studio 2010\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.csproj.GenerateResource.Cache
+\\10.20.47.208\Users\Public\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.exe.config
+\\10.20.47.208\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.exe
+\\10.20.47.208\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.pdb
+c:\Users\Public\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.exe.config
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.exe
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.pdb
+c:\Users\Public\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.exe
+c:\Users\Public\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.pdb
+c:\Users\Public\NewSceenSaver\NewSceenSaver\bin\Debug\Authentificator.dll
+c:\Users\Public\NewSceenSaver\NewSceenSaver\bin\Debug\FilesProcessingLib.dll
+c:\Users\Public\NewSceenSaver\NewSceenSaver\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll
+c:\Users\Public\NewSceenSaver\NewSceenSaver\bin\Debug\Authentificator.pdb
+c:\Users\Public\NewSceenSaver\NewSceenSaver\bin\Debug\Hardcodet.Wpf.TaskbarNotification.pdb
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.csprojResolveAssemblyReference.cache
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\MainWindow.baml
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\App.baml
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\MainWindow.g.cs
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\App.g.cs
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver_MarkupCompile.cache
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver_MarkupCompile.lref
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\Themes\ExpressionLight.baml
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.g.resources
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.Properties.Resources.resources
+c:\Users\Public\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.csproj.GenerateResource.Cache
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.exe.config
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.exe
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.pdb
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.csprojResolveAssemblyReference.cache
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\MainWindow.baml
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\App.baml
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\MainWindow.g.cs
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\App.g.cs
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver_MarkupCompile.cache
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver_MarkupCompile.lref
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.exe
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.pdb
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Authentificator.dll
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\FilesProcessingLib.dll
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Authentificator.pdb
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\bin\Debug\Hardcodet.Wpf.TaskbarNotification.pdb
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\Themes\ExpressionLight.baml
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.g.resources
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.Properties.Resources.resources
+c:\Users\Артем\Documents\Visual Studio 2012\Projects\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.csproj.GenerateResource.Cache
+d:\Distributiv\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.exe.config
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.exe
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.pdb
+d:\Distributiv\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.exe
+d:\Distributiv\NewSceenSaver\NewSceenSaver\bin\Debug\NewSceenSaver.pdb
+d:\Distributiv\NewSceenSaver\NewSceenSaver\bin\Debug\Authentificator.dll
+d:\Distributiv\NewSceenSaver\NewSceenSaver\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll
+d:\Distributiv\NewSceenSaver\NewSceenSaver\bin\Debug\Authentificator.pdb
+d:\Distributiv\NewSceenSaver\NewSceenSaver\bin\Debug\Hardcodet.Wpf.TaskbarNotification.pdb
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.csprojResolveAssemblyReference.cache
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\MainWindow.baml
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\App.baml
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\MainWindow.g.cs
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\App.g.cs
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver_MarkupCompile.cache
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver_MarkupCompile.lref
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\Themes\ExpressionLight.baml
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.g.resources
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.Properties.Resources.resources
+d:\Distributiv\NewSceenSaver\NewSceenSaver\obj\x86\Debug\NewSceenSaver.csproj.GenerateResource.Cache
