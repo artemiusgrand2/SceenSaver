@@ -234,14 +234,13 @@ namespace Authentificator
 
         } // enum UserAuthentResult
 
-        public UserAuthentResult Authenticate(string inp_rfidcard, out string userName)
+        public UserAuthentResult Authenticate(string inp_rfidcard, out string userName, ViewReader viewReader)
         {
             XmlSerializer _serializer = null;
             FileStream _stream = null;
             StreamReader _streamReader = null;
             MD5 _md5 = null;
             UnicodeEncoding _byteConverter = null;
-
             List<UserAuthentData> _userAuthentData = null;
 
             try
@@ -251,91 +250,24 @@ namespace Authentificator
                 _streamReader = new StreamReader(_stream, Encoding.Unicode);
                 _md5 = new MD5CryptoServiceProvider();
                 _byteConverter = new UnicodeEncoding();
-                var match = Regex.Match(inp_rfidcard, rfidPattern);
-                if (match.Success)
+                //
+                switch (viewReader)
                 {
-                    _userAuthentData = (List<UserAuthentData>)_serializer.Deserialize(_streamReader);
-                    if (_userAuthentData != null)
-                    {
-                        foreach (UserAuthentData _uad in _userAuthentData)
+                    case ViewReader.ironlogic:
                         {
-                            if (_uad.RfidCod == _byteConverter.GetString(_md5.ComputeHash(_byteConverter.GetBytes(inp_rfidcard))))
-                            {
-                                userName = _uad.Login;
-                                return UserAuthentResult.OK;
-                            }
+                            if (!Regex.IsMatch(inp_rfidcard, rfidPattern))
+                                goto end;
 
-                        } // foreach
-
-                    } // if
+                        }
+                        break;
                 }
-            } // try
-            finally
-            {
-                if (_serializer != null)
-                    _serializer = null;
-
-                if (_stream != null)
-                {
-                    try { _stream.Close(); } // try
-                    catch { /* No message is needed here */ } // catch
-                    _stream = null;
-                } // if
-
-                if (_streamReader != null)
-                {
-                    try { _streamReader.Close(); } // try
-                    catch { /* No message is needed here */ } // catch
-                    _streamReader = null;
-                } // if
-
-                if (_md5 != null)
-                {
-                    try { _md5.Clear(); } // try
-                    catch { /* No message is needed here */ } // catch
-                    _md5 = null;
-                } // if
-
-                if (_byteConverter != null)
-                    _byteConverter = null;
-
-                if (_userAuthentData != null)
-                {
-                    try { _userAuthentData.Clear(); } // try
-                    catch { /* No message is needed here*/ } // catch
-                    _userAuthentData = null;
-                } // if
-
-            } // finally
-            userName = string.Empty;
-            return UserAuthentResult.AuthentDataNotFound;
-
-        }
-
-
-        public UserAuthentResult Authenticate(byte [] inp_rfidcard, out string userName)
-        {
-            XmlSerializer _serializer = null;
-            FileStream _stream = null;
-            StreamReader _streamReader = null;
-            MD5 _md5 = null;
-            UnicodeEncoding _byteConverter = null;
-
-            List<UserAuthentData> _userAuthentData = null;
-
-            try
-            {
-                _serializer = new XmlSerializer(typeof(List<UserAuthentData>));
-                _stream = new FileStream(this.fullPathToUserAuthDataFile, FileMode.Open, FileAccess.Read, FileShare.Read);
-                _streamReader = new StreamReader(_stream, Encoding.Unicode);
-                _md5 = new MD5CryptoServiceProvider();
-                _byteConverter = new UnicodeEncoding();
-                    _userAuthentData = (List<UserAuthentData>)_serializer.Deserialize(_streamReader);
+                //
+                _userAuthentData = (List<UserAuthentData>)_serializer.Deserialize(_streamReader);
                 if (_userAuthentData != null)
                 {
                     foreach (UserAuthentData _uad in _userAuthentData)
                     {
-                        if (_uad.RfidCod == _byteConverter.GetString(_md5.ComputeHash(inp_rfidcard)))
+                        if (_uad.RfidCod == _byteConverter.GetString(_md5.ComputeHash(_byteConverter.GetBytes(inp_rfidcard))))
                         {
                             userName = _uad.Login;
                             return UserAuthentResult.OK;
@@ -382,11 +314,11 @@ namespace Authentificator
                 } // if
 
             } // finally
+            end:
             userName = string.Empty;
             return UserAuthentResult.AuthentDataNotFound;
 
         }
-
 
         /// <summary>
         /// Checks whether the user with the given authentication data (login and password) exists and whether his
@@ -957,7 +889,6 @@ namespace Authentificator
 
                 // Сохраняем новый пароль (предварительно шифруя его)
                 // --------------------------------------------------
-
                 _userAuthentData[_userToEditIndex].RfidCod = _byteConverter.GetString(_md5.ComputeHash(_byteConverter.GetBytes(inp_rfidcard)));
 
                 _stream = new FileStream(this.fullPathToUserAuthDataFile, FileMode.Create, FileAccess.Write, FileShare.None);

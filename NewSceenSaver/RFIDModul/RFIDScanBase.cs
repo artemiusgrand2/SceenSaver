@@ -5,6 +5,7 @@ using System.Linq;
 using System.IO.Ports;
 using System.Timers;
 using Authentificator;
+using Authentificator.Enums;
 
 using NewScreenSaver.Models;
 using NewScreenSaver.OtherScreens;
@@ -71,6 +72,10 @@ namespace NewScreenSaver.RFIDModul
         /// первое ли это подключение
         /// </summary>
         protected bool _isfirst_connect = true;
+        /// <summary>
+        /// вид считывателя
+        /// </summary>
+        protected ViewReader _viewReader;
 
         protected IList<string> bufferNameComPorts = new List<string>();
         /// <summary>

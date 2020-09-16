@@ -106,14 +106,15 @@ namespace NewScreenSaver
         /// <summary>
         /// Печатные символы, которые пользователю разрешено вводить
         /// </summary>
-        private static char[] allowedSymbolsArray = new char[] {
+        private static int[] allowedSymbolsArray = new int[] {
                 (char)Keys.A, (char)Keys.B, (char)Keys.C, (char)Keys.D, (char)Keys.E, (char)Keys.F, (char)Keys.G, (char)Keys.H,
                 (char)Keys.I, (char)Keys.J, (char)Keys.K, (char)Keys.L, (char)Keys.M, (char)Keys.N, (char)Keys.O, (char)Keys.P,
                 (char)Keys.Q, (char)Keys.R, (char)Keys.S, (char)Keys.T, (char)Keys.U, (char)Keys.V, (char)Keys.W, (char)Keys.X,
                 (char)Keys.Y, (char)Keys.Z, (char)Keys.OemMinus, (char)Keys.D0, (char)Keys.D1, (char)Keys.D2, (char)Keys.D3,
                 (char)Keys.D4, (char)Keys.D5, (char)Keys.D6, (char)Keys.D7, (char)Keys.D8, (char)Keys.D9,(char)Keys.NumPad0, (char)Keys.NumPad1,
                 (char)Keys.NumPad2, (char)Keys.NumPad3, (char)Keys.NumPad4, (char)Keys.NumPad5, (char)Keys.NumPad6, (char)Keys.NumPad7,
-                (char)Keys.NumPad8, (char)Keys.NumPad9, (char)Keys.CapsLock, (char)Keys.Back, (char)Keys.Enter};
+                (char)Keys.NumPad8, (char)Keys.NumPad9, (char)Keys.CapsLock, (char)Keys.Back, (char)Keys.Enter, (char)Keys.Left, (char)Keys.Right,
+                (char)Keys.Up, (char)Keys.Down, (char)Keys.Oemplus, (int)Keys.LShiftKey, (int)Keys.RShiftKey};
         //private static char[] allowedCharsArray = new char[] {
         //        'A','a', 'B','b', 'C','c', 'D','d', 'E','e', 'F','f', 'G','g', 'H','h', 'I','i', 'J','j', 'K','k',
         //        'L','l', 'M','m', 'N','n', 'O','o', 'P','p', 'Q','q', 'R','r', 'S','s', 'T','t', 'U','u', 'V','v',
@@ -248,7 +249,7 @@ namespace NewScreenSaver
             catch (Exception _ex)
             {
                 // Выводим сообщение об ошибке
-                System.Windows.MessageBox.Show(this, _ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show(this, _ex.Message, "Error" + " MainWindow251", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Сохраняем сообщение об ошибке в LOG-файле
                 SaveMessInFile(DateTime.Now.ToString() + ": " + _ex.Message, "MainWindow", "217");
@@ -316,7 +317,7 @@ namespace NewScreenSaver
 
         private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs args)
         {
-            System.Windows.MessageBox.Show(args.ExceptionObject.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            System.Windows.MessageBox.Show(args.ExceptionObject.ToString(), "Error319", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void GetOtherScreen(string data, ref string hostname, out int port)
@@ -790,7 +791,7 @@ namespace NewScreenSaver
             {
                 MessageShowActivete = true;
                 // Выводим сообщение об ошибке
-                System.Windows.MessageBox.Show(this, _ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show(this, _ex.Message + " SetHook793", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 MessageShowActivete = false;
                 // Сохраняем сообщение об ошибке в LOG-файле
                 SaveMessInFile(DateTime.Now.ToString() + ": " + _ex.Message, "SetHook", "721");
@@ -820,7 +821,7 @@ namespace NewScreenSaver
             {
                 MessageShowActivete = true;
                 // Выводим сообщение об ошибке
-                System.Windows.MessageBox.Show(this, _ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show(this, _ex.Message + " SetHook823", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 MessageShowActivete = false;
                 // Сохраняем сообщение об ошибке в LOG-файле
                 SaveMessInFile(DateTime.Now.ToString() + ": " + _ex.Message, "SetHook", "751");
@@ -952,12 +953,14 @@ namespace NewScreenSaver
 
         private void MyKeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
+          //  e.KeyCode == Keys.Shift
             // Нажата недопустимая клавиша
             // ---------------------------    
             if ((Array.IndexOf(allowedSymbolsArray, (char)e.KeyData) < 0))
             {
                 e.Handled = true;
             }
+
             //
             // Нажата допустимая клавиша
             // -------------------------    

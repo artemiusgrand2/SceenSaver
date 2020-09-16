@@ -27,6 +27,7 @@ namespace TestSerialPort
             mySerialPort.StopBits = StopBits.OnePointFive;
             mySerialPort.DataBits = 8;
             mySerialPort.Handshake = Handshake.None;
+            
             try
             {
                 mySerialPort.DataReceived += SerialPortDataReceived;

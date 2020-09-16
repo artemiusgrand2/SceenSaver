@@ -4,6 +4,7 @@ using System.Text;
 using System.IO.Ports;
 
 using Authentificator;
+using Authentificator.Enums;
 
 namespace NewScreenSaver.RFIDModul
 {
@@ -29,6 +30,7 @@ namespace NewScreenSaver.RFIDModul
         public RFIDScanIronLogic(int baudRate, Authentificators auth, bool cardOn) : base(baudRate, auth)
         {
             _cardOn = cardOn;
+            _viewReader = ViewReader.ironlogic;
         }
 
         protected override void Scan()
@@ -72,9 +74,9 @@ namespace NewScreenSaver.RFIDModul
                             //
                             _readString = string.Empty;
                         }
-                        else if (_auth.Authenticate(_readString.Trim(), out login) == Authentificators.UserAuthentResult.OK)
+                        else if (_auth.Authenticate(_readString.Trim(), out login, _viewReader) == Authentificators.UserAuthentResult.OK)
                         {
-                            MainWindow.SaveMessInFile(string.Format("{0} Аутентификация пользователя: {1}", DateTime.Now.ToString(), login), "", "");
+                            MainWindow.SaveMessInFile($"{DateTime.Now.ToString()} Аутентификация пользователя: {login}", "", "");
                             IsAuthorization = true;
                             _readString = string.Empty;
                         }
@@ -104,7 +106,7 @@ namespace NewScreenSaver.RFIDModul
             }
             catch (Exception error)
             {
-                MainWindow.SaveMessInFile(error.Message, "timerCom_Elapsed", "200");
+                MainWindow.SaveMessInFile($"{DateTime.Now.ToString()} {error.Message} ", "Scan", "107");
                 if (_readString != string.Empty)
                     _readString = string.Empty;
                 _serialPort.Close();

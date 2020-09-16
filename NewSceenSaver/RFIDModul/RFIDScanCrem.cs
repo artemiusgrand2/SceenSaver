@@ -5,6 +5,7 @@ using System.Linq;
 using System.IO.Ports;
 
 using Authentificator;
+using Authentificator.Enums;
 
 namespace NewScreenSaver.RFIDModul
 {
@@ -15,7 +16,10 @@ namespace NewScreenSaver.RFIDModul
 
         private readonly TimeSpan _waitRead = new TimeSpan(0, 0, 0, 0, 1100);
 
-        public RFIDScanCrem(int baudRate, Authentificators auth) : base(baudRate, auth) { }
+        public RFIDScanCrem(int baudRate, Authentificators auth) : base(baudRate, auth)
+        {
+            _viewReader = ViewReader.crem;
+        }
 
         protected override void Scan()
         {
@@ -42,53 +46,47 @@ namespace NewScreenSaver.RFIDModul
             }
             catch (Exception error)
             {
-                MainWindow.SaveMessInFile(error.Message, "timerCom_Elapsed", "200");
+                MainWindow.SaveMessInFile($"{DateTime.Now.ToString()} {error.Message} ", "Scan", "45");
                 Close();
             }
         }
 
         private void Close()
         {
-            lock (_serialPort)
-            {
-                _serialPort.DataReceived -= SerialPort_DataReceived;
-                _serialPort.Close();
-                IsAuthorization = false;
-                IsOpen = false;
-                RenameComPort();
-            }
+            _serialPort.Close();
+            IsOpen = false;
+            _serialPort.DataReceived -= SerialPort_DataReceived;
+            IsAuthorization = false;
+            RenameComPort();
         }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            lock (_serialPort)
+            if (IsOpen)
             {
-                if (IsOpen)
+                try
                 {
-                    try
+                    _lastReadData = DateTime.Now;
+                    var dataRead = new byte[_serialPort.BytesToRead];
+                    int countByte = _serialPort.Read(dataRead, 0, dataRead.Length);
+                    string login;
+                    if (_auth.Authenticate(Encoding.Unicode.GetString(dataRead), out login, _viewReader) == Authentificators.UserAuthentResult.OK)
                     {
-                        _lastReadData = DateTime.Now;
-                        var dataRead = new byte[_serialPort.BytesToRead];
-                        int countByte = _serialPort.Read(dataRead, 0, dataRead.Length);
-                        string login;
-                        if (_auth.Authenticate(dataRead, out login) == Authentificators.UserAuthentResult.OK)
+                        if (!IsAuthorization)
                         {
-                            if (!IsAuthorization)
-                            {
-                                MainWindow.SaveMessInFile($"{DateTime.Now.ToString()} Аутентификация пользователя: {login}", "", "");
-                                IsAuthorization = true;
-                            }
-                        }
-                        else
-                        {
-                            IsAuthorization = false;
-                            MainWindow.SaveMessInFile($"{DateTime.Now.ToString()} Неизвестный пользовтель: {Encoding.UTF8.GetString(dataRead, 0, dataRead.Length)}", "", "");
+                            MainWindow.SaveMessInFile($"{DateTime.Now.ToString()} Аутентификация пользователя: {login}", "", "");
+                            IsAuthorization = true;
                         }
                     }
-                    catch(Exception error)
+                    else
                     {
-                        MainWindow.SaveMessInFile(error.Message, "_serialPort_DataReceived", "92");
+                        IsAuthorization = false;
+                        MainWindow.SaveMessInFile($"{DateTime.Now.ToString()} Неизвестный пользовтель: {ConvertorDataRfid.ConvertFromBytesToStr(dataRead, _viewReader)}", "", "");
                     }
+                }
+                catch (Exception error)
+                {
+                    MainWindow.SaveMessInFile($"{DateTime.Now.ToString()} {error.Message} ", "SerialPort_DataReceived", "90");
                 }
             }
         }
