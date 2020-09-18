@@ -114,7 +114,7 @@ namespace NewScreenSaver
                 (char)Keys.D4, (char)Keys.D5, (char)Keys.D6, (char)Keys.D7, (char)Keys.D8, (char)Keys.D9,(char)Keys.NumPad0, (char)Keys.NumPad1,
                 (char)Keys.NumPad2, (char)Keys.NumPad3, (char)Keys.NumPad4, (char)Keys.NumPad5, (char)Keys.NumPad6, (char)Keys.NumPad7,
                 (char)Keys.NumPad8, (char)Keys.NumPad9, (char)Keys.CapsLock, (char)Keys.Back, (char)Keys.Enter, (char)Keys.Left, (char)Keys.Right,
-                (char)Keys.Up, (char)Keys.Down, (char)Keys.Oemplus, (int)Keys.LShiftKey, (int)Keys.RShiftKey};
+                (char)Keys.Up, (char)Keys.Down,  (int)Keys.LShiftKey, (int)Keys.RShiftKey};
         //private static char[] allowedCharsArray = new char[] {
         //        'A','a', 'B','b', 'C','c', 'D','d', 'E','e', 'F','f', 'G','g', 'H','h', 'I','i', 'J','j', 'K','k',
         //        'L','l', 'M','m', 'N','n', 'O','o', 'P','p', 'Q','q', 'R','r', 'S','s', 'T','t', 'U','u', 'V','v',

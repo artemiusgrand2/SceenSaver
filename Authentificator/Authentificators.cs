@@ -178,8 +178,8 @@ namespace Authentificator
             CheckLogin(inp_loginName);
             // Проверки для пароля
             // -------------------
-            CheckLogin(inp_password);
-        } 
+            CheckPassword(inp_password);
+        }
 
         private void CheckPassword(string inp_password)
         {

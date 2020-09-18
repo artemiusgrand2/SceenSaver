@@ -14,7 +14,7 @@ namespace NewScreenSaver.RFIDModul
 
         private DateTime _lastReadData;
 
-        private readonly TimeSpan _waitRead = new TimeSpan(0, 0, 0, 0, 1100);
+        private readonly TimeSpan _waitRead = new TimeSpan(0, 0, 0, 0, 1150);
 
         public RFIDScanCrem(int baudRate, Authentificators auth) : base(baudRate, auth)
         {
