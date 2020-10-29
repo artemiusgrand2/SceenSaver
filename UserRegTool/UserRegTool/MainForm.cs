@@ -247,14 +247,14 @@ namespace UserRegTool
         {
             DateTime _dt = new DateTime(this.dateWhenPasswordEnds.Value.Year, this.dateWhenPasswordEnds.Value.Month, this.dateWhenPasswordEnds.Value.Day,
                                         this.timeWhenPasswordEnds.Value.Hour, this.timeWhenPasswordEnds.Value.Minute, this.timeWhenPasswordEnds.Value.Second);
-            UserAuthentData _userData = new UserAuthentData(this.userNameTextBox.Text, this.passwordTextBox.Text, false, _dt, this.rfidcodTextBox.Text);
+            UserAuthentData _userData = new UserAuthentData(this.userLoginTextBox.Text, this.passwordTextBox.Text, this.userUserNameTextBox.Text, false, _dt, this.rfidcodTextBox.Text);
 
             try
             {
                 // ƒобавление нового пользовател€
                 _auth.SaveUserAuthentData(_userData, _viewReadCard);
 
-                MessageBox.Show(this, "ѕользователь " + this.userNameTextBox.Text + " успешно зарегистрирован",
+                MessageBox.Show(this, "ѕользователь " + this.userLoginTextBox.Text + " успешно зарегистрирован",
                     "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.clearFieldsBtn_Click(null, null);
@@ -287,7 +287,7 @@ namespace UserRegTool
             try
             {
                 // –едактирование парол€ у существующего пользовател€
-                _auth.EditPassword(this.userNameTextBox.Text, this.passwordTextBox.Text);
+                _auth.EditPassword(this.userLoginTextBox.Text, this.passwordTextBox.Text);
 
                 MessageBox.Show(this, "ѕароль успешно изменен", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -322,9 +322,9 @@ namespace UserRegTool
             try
             {
                 // –едактирование срока действи€ парол€ у существующего пользовател€
-                _auth.EditPasswordAction(this.userNameTextBox.Text, _dt);
+                _auth.EditPasswordAction(this.userLoginTextBox.Text, _dt);
 
-                MessageBox.Show(this, "—рок действи€ парол€ пользовател€ " + this.userNameTextBox.Text + " успешно изменен",
+                MessageBox.Show(this, "—рок действи€ парол€ пользовател€ " + this.userLoginTextBox.Text + " успешно изменен",
                     "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.clearFieldsBtn_Click(null, null);
@@ -393,7 +393,7 @@ namespace UserRegTool
         /// <param name="e"></param>
         private void clearFieldsBtn_Click(object sender, EventArgs e)
         {
-            this.userNameTextBox.Text = String.Empty;
+            this.userLoginTextBox.Text = String.Empty;
             this.passwordTextBox.Text = String.Empty;
             this.rfidcodTextBox.Text = String.Empty;
 
@@ -422,7 +422,7 @@ namespace UserRegTool
 
                 if (_selectedItems.Count > 0)
                 {
-                    this.userNameTextBox.Text = _selectedItems[0].Name;
+                    this.userLoginTextBox.Text = _selectedItems[0].Name;
 
                     DateTime _dt = Convert.ToDateTime(_selectedItems[0].SubItems[1].Text);
 
@@ -531,7 +531,7 @@ namespace UserRegTool
             try
             {
                 // –едактирование парол€ у существующего пользовател€
-                _auth.EditRfid(this.userNameTextBox.Text, this.rfidcodTextBox.Text, _viewReadCard);
+                _auth.EditRfid(this.userLoginTextBox.Text, this.rfidcodTextBox.Text, _viewReadCard);
                 MessageBox.Show(this, " од карточки успешно изменен", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.clearFieldsBtn_Click(null, null);
                 // ќбновление списка пользователей
@@ -547,6 +547,28 @@ namespace UserRegTool
 
         #endregion
 
+        private void editUserNameBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // –едактирование парол€ у существующего пользовател€
+                _auth.EditUserName(this.userLoginTextBox.Text, this.userUserNameTextBox.Text);
+
+                MessageBox.Show(this, "»м€ пользовател€ успешно изменено", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.clearFieldsBtn_Click(null, null);
+
+                // ќбновление списка пользователей
+                this.RefreshUsersList();
+
+            } // try
+            catch (Exception _ex)
+            {
+                // ¬ыводим сообщение об ошибке
+                MessageBox.Show(this, _ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            } // catch
+        }
     } // class MainForm
 
 } // namespace UserRegTool

@@ -18,7 +18,10 @@ namespace NewScreenSaver.Models
         {
             get
             {
-                return rfid.IsOpen;
+                if (rfid != null)
+                    return rfid.IsOpen;
+                else
+                    return false;
             }
         }
 

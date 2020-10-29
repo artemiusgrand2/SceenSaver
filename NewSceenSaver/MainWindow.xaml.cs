@@ -195,8 +195,10 @@ namespace NewScreenSaver
             try
             {
                 SaveMessInFile(DateTime.Now.ToString() + ": Загружаем данные Authentificators", "MainWindow", "175");
+                var login = (ConfigurationManager.AppSettings.AllKeys.Contains("Login")) ? ConfigurationManager.AppSettings["Login"] : string.Empty;
+                var password = (ConfigurationManager.AppSettings.AllKeys.Contains("Password")) ? ConfigurationManager.AppSettings["Password"] : string.Empty;
                 auth = new Authentificators(ConfigurationManager.AppSettings[@"userAuthentDataFilePath"],
-                    Authentificators.AuthertificatorActions.OnlyAuthentication);
+                    Authentificators.AuthertificatorActions.OnlyAuthentication, login, password);
                 // Считываем из конфигурационного файла время действия пароля пользователя
                 // -----------------------------------------------------------------------
                 if ((Int32.TryParse(ConfigurationManager.AppSettings[@"userPasswordDefLifeTime"], out userPasswordDefLifeTime)) == false)

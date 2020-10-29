@@ -39,6 +39,10 @@
     <Reference Include="FilesProcessingLib">
       <HintPath>E:\Distributiv\Утилита идентификации и аутентификации\Version 3.0\TransparentScreenSaver\TransparentScreenSaver\bin\Debug\FilesProcessingLib.dll</HintPath>
     </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -128,10 +132,6 @@
     <ProjectReference Include="..\Authentificator\Authentificator.csproj">
       <Project>{5E206551-7CA0-4239-9287-1F399898F9BC}</Project>
       <Name>Authentificator</Name>
-    </ProjectReference>
-    <ProjectReference Include="D:\Distributiv\wpf-notifyicon\NotifyIconWpf\NotifyIconWpf.csproj">
-      <Project>{7AC63864-7638-41C4-969C-D3197EF2BED9}</Project>
-      <Name>NotifyIconWpf</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
