@@ -70,6 +70,7 @@
     <Compile Include="Enums\ViewServer.cs" />
     <Compile Include="Interface\IConverter.cs" />
     <Compile Include="Messages\Message.cs" />
+    <Compile Include="Models\ModelUser.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Models\VisibleInterfaceModel.cs" />
     <Compile Include="OtherScreens\ListenScreen.cs" />

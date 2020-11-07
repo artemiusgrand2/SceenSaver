@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Windows;
+using System.Globalization;
 using System.Configuration;
 using Authentificator;
 using FilesProcessingLib;
@@ -150,7 +151,7 @@ namespace NewScreenSaver
         private static int authAttemp = 0;
         private DateTime lastAltClickTime = DateTime.Now;
 
-        public VisibleInterfaceModel VisibleInterfaceModel { get;  } = new VisibleInterfaceModel();
+        private VisibleInterfaceModel _modelView { get;  } = new VisibleInterfaceModel();
 
         #endregion
 
@@ -160,7 +161,7 @@ namespace NewScreenSaver
             // ------------------------------------------
             InitializeComponent();
             MaxStateWindows();
-            this.DataContext = VisibleInterfaceModel;
+            this.DataContext = _modelView;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             logFilePath = ConfigurationManager.AppSettings[@"logFilePath"];
             if ((Int32.TryParse(ConfigurationManager.AppSettings[@"maxLogFileSizeInBytes"], out maxLogFileSizeInBytes)) == false)
@@ -245,7 +246,7 @@ namespace NewScreenSaver
                     cardOn = true;
                 RFIDScan = RFIDScanFactory.Create(viewReader, baudRate, auth, cardOn);
                 RFIDScan.Authorization += UpdateStatusAuthorization;
-                VisibleInterfaceModel.Initialization(RFIDScan, Dispatcher);
+                _modelView.Initialization(RFIDScan, Dispatcher);
                 RFIDScan.Start();
             } // try
             catch (Exception _ex)
@@ -387,15 +388,34 @@ namespace NewScreenSaver
 
                 // Отображаем имена всех пользователей (зарегистрированных)
                 // -------------------------------------------------------
-                this.loginCombo.Items.Clear();
-
-                if (_allUsers != null)
+                this._modelView.Users.Clear();
+           
+                if (_allUsers != null && _allUsers.Count > 0)
                 {
+                    var textBlockBuffer = new TextBlock();
+                    var maxHeight = _allUsers.Select(x => GetTextSize(textBlockBuffer, x.UserName)).Max();
                     foreach (UserAuthentData _user in _allUsers)
-                        this.loginCombo.Items.Add(_user.Login);
+                    {
+                        this._modelView.Users.Add(new ModelUser(_user.Login, _user.UserName));
+                        // this.loginCombo.Items.Add(_user.Login);
+                    }
+
+                    this._modelView.Users.ToList().ForEach(x => x.WidthUser = maxHeight);
+
 
                 }
             }
+        }
+
+        private  double GetTextSize(TextBlock textBlock, string text)
+        {
+            FormattedText ft = new FormattedText(text, CultureInfo.CurrentUICulture, textBlock.FlowDirection,
+                                                 new Typeface(textBlock.FontFamily, textBlock.FontStyle,
+                                                              textBlock.FontWeight, textBlock.FontStretch),
+                                                 textBlock.FontSize, textBlock.Foreground
+                );
+
+            return ft.Width;
         }
 
         /// <summary>
@@ -435,10 +455,10 @@ namespace NewScreenSaver
                             auth.EditPasswordStatus(authLogin, true);
                             MessageShowActivete = true;
                             // Выводим сообщение об ошибке
-                            System.Windows.Forms.MessageBox.Show("Пароль неверен. Истекло максимальное число попыток аутентифицироваться. Аккаунт " + this.loginCombo.Text + " заблокирован");
+                            System.Windows.Forms.MessageBox.Show("Пароль неверен. Истекло максимальное число попыток аутентифицироваться. Аккаунт " + _modelView.Login + " заблокирован");
                             MessageShowActivete = false;
                             // Сохраняем сообщение об ошибке в LOG-файле
-                            SaveMessInFile(DateTime.Now.ToString() + ": Пароль неверен. Истекло максимальное число попыток аутентифицироваться. Аккаунт " + this.loginCombo.Text + " заблокирован", "OKBtn_Click", "380");
+                            SaveMessInFile(DateTime.Now.ToString() + ": Пароль неверен. Истекло максимальное число попыток аутентифицироваться. Аккаунт " + _modelView.Login + " заблокирован", "OKBtn_Click", "380");
 
                         } // if
                         else
@@ -482,11 +502,11 @@ namespace NewScreenSaver
                 // Прежде чем делать проверки на корректность аутентификационных данных,
                 // фиксируем (в LOG-файле) попытку пользователя аутентифицироваться
                 // ---------------------------------------------------------------------
-                SaveMessInFile(DateTime.Now.ToString() + ": Аутентификация пользователя: " + this.loginCombo.Text, "OKBtn_Click", "424");
+                SaveMessInFile(DateTime.Now.ToString() + ": Аутентификация пользователя: " + _modelView.Login, "OKBtn_Click", "424");
 
                 // Если пользователь ввел имя и пароль, которые должны привести к завершению работы приложения, то
                 // завершаем работу приложения
-                if ((this.loginCombo.Text.ToUpper() == "TSS") && (this.passwordBox.Password.ToUpper() == "CLOSE"))
+                if ((_modelView.Login.ToUpper() == "TSS") && (this.passwordBox.Password.ToUpper() == "CLOSE"))
                 {
                     try { actHook.Stop(); }
                     catch { }
@@ -497,7 +517,7 @@ namespace NewScreenSaver
                 } //
 
                 // Если пользователь ввел "резервные" имя и пароль, то их не проверяем
-                if ((this.loginCombo.Text.ToUpper() == "TSS") && (this.passwordBox.Password == "1"))
+                if ((_modelView.Login.ToUpper() == "TSS") && (this.passwordBox.Password == "1"))
                 {
                     _authRes = Authentificators.UserAuthentResult.OK;
                     isStartAuthTimer = false;
@@ -506,17 +526,17 @@ namespace NewScreenSaver
                 // Если же введенные имя и пароль отличны от "резервных", то они подлежат проверке
                 else
                 {
-                    if (authLogin != this.loginCombo.Text)
+                    if (authLogin != _modelView.Login)
                     {
                         // Запоминаем имя пользователя при его первой попытке аутентифицироваться
-                        authLogin = this.loginCombo.Text;
+                        authLogin = _modelView.Login;
                         authAttemp = 0;
 
                     } // if
 
                     try
                     {
-                        _authRes = auth.Authenticate(this.loginCombo.Text, this.passwordBox.Password);
+                        _authRes = auth.Authenticate(_modelView.Login, this.passwordBox.Password);
 
                         if (_authRes == Authentificators.UserAuthentResult.AuthentDataNotFound)
                         {
@@ -536,13 +556,13 @@ namespace NewScreenSaver
                             if (authAttemp >= maxAuthAttemp)
                             {
                                 // Блокируем аккаунт текущего пользователя
-                                auth.EditPasswordStatus(this.loginCombo.Text, true);
+                                auth.EditPasswordStatus(_modelView.Login, true);
                                 MessageShowActivete = true;
                                 // Выводим сообщение об ошибке
-                                System.Windows.Forms.MessageBox.Show("Пароль неверен. Истекло максимальное число попыток аутентифицироваться. Аккаунт " + this.loginCombo.Text + " заблокирован");
+                                System.Windows.Forms.MessageBox.Show("Пароль неверен. Истекло максимальное число попыток аутентифицироваться. Аккаунт " + _modelView.Login + " заблокирован");
                                 MessageShowActivete = false;
                                 // Сохраняем сообщение об ошибке в LOG-файле
-                                SaveMessInFile(DateTime.Now.ToString() + ": Пароль неверен. Истекло максимальное число попыток аутентифицироваться. Аккаунт " + this.loginCombo.Text + " заблокирован", "OKBtn_Click", "481");
+                                SaveMessInFile(DateTime.Now.ToString() + ": Пароль неверен. Истекло максимальное число попыток аутентифицироваться. Аккаунт " + _modelView.Login + " заблокирован", "OKBtn_Click", "481");
 
                             } // if
                             else
@@ -609,7 +629,7 @@ namespace NewScreenSaver
 
         private void HideWindow(bool isStartAuthTimer)
         {
-            loginCombo.Text = String.Empty;
+            _modelView.Login = String.Empty;
             passwordBox.Password = String.Empty;
             loginCombo.Focus();
             // Сохраняем сообщение об успешной аутентификации в LOG-файле
@@ -773,7 +793,7 @@ namespace NewScreenSaver
         /// </summary>
         private void SetHook()
         {
-            loginCombo.Text = string.Empty;
+            _modelView.Login = string.Empty;
             passwordBox.Password = string.Empty;
             authAttemp = 0;
             InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(new System.Globalization.CultureInfo("en-US"));
@@ -814,7 +834,6 @@ namespace NewScreenSaver
                     actHook.KeyPress += new System.Windows.Forms.KeyPressEventHandler(MyKeyPress);
                     actHook.KeyUp += new System.Windows.Forms.KeyEventHandler(MyKeyUp);
                 } // if
-
                 else
                     actHook.Start();
 
@@ -867,6 +886,19 @@ namespace NewScreenSaver
             newPasslabEnter.Visibility = visible;
             newPasswordBoxEnter.Visibility = visible;
             ButtonBack.Visibility = visible;
+            //
+            if(ButtonBack.Visibility == Visibility.Visible)
+            {
+                DrawCanvas.Height += 30;
+                RecRamka.Height += 30;
+                Canvas.SetTop(AddCanvas, 30);
+            }
+            else
+            {
+                DrawCanvas.Height -= 30;
+                RecRamka.Height -= 30;
+                Canvas.SetTop(AddCanvas, 0);
+            }
         }
 
 
@@ -1209,18 +1241,6 @@ namespace NewScreenSaver
             System.Windows.Application.Current.Shutdown();
         }
 
-        /// <summary>
-        /// ширина текста в пикселях
-        /// </summary>
-        /// <param name="combox"></param>
-        /// <returns></returns>
-        public static double WidthText(System.Windows.Controls.ComboBox combox)
-        {
-            Typeface typeface = new Typeface(combox.FontFamily, combox.FontStyle, combox.FontWeight, combox.FontStretch);
-            System.Windows.Media.Brush brush = new SolidColorBrush();
-            FormattedText formatedText = new FormattedText(combox.Text, System.Globalization.CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, typeface, combox.FontSize, brush);
-            return formatedText.Width;
-        }
 
         private void loginCombo_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -1279,15 +1299,6 @@ namespace NewScreenSaver
             {
                 newPasswordBox.Background = Brushes.Red;
                 newPasswordBoxEnter.Background = Brushes.Red;
-            }
-        }
-
-        private void loginCombo_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (WidthText(loginCombo) > loginCombo.Width - 30)
-            {
-                loginCombo.Text = loginCombo.Text.Substring(0, loginCombo.Text.Length - 1);
-                (e.OriginalSource as System.Windows.Controls.TextBox).CaretIndex = loginCombo.Text.Length;
             }
         }
 

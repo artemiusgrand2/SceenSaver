@@ -51,6 +51,7 @@ namespace UserRegTool
                 this.registeredUsersListView.View = View.Details;
 
                 // Create columns for the items and sub-items
+                this.registeredUsersListView.Columns.Add("Логин пользователя", -2, HorizontalAlignment.Left);
                 this.registeredUsersListView.Columns.Add("Имя пользователя", -2, HorizontalAlignment.Left);
                 this.registeredUsersListView.Columns.Add("Срок действия пароля", -2, HorizontalAlignment.Left);
                 this.registeredUsersListView.Columns.Add("Блокировка пароля", Screen.PrimaryScreen.WorkingArea.Width, HorizontalAlignment.Left);
@@ -89,8 +90,8 @@ namespace UserRegTool
             {
                 // Creating an item to add
                 _lwi = new ListViewItem(inp_userInfo.Login);
-
                 // Adding subitems
+                _lwi.SubItems.Add(inp_userInfo.UserName);
                 _lwi.SubItems.Add(inp_userInfo.DateTimeWhenPasswordEnds.ToString());
                 _lwi.SubItems.Add(inp_userInfo.IsPasswordBlocked.ToString());
 
@@ -144,9 +145,10 @@ namespace UserRegTool
             // 
             // addUserBtn
             // 
-            this.addUserBtn.Location = new System.Drawing.Point(15, 167);
+            this.addUserBtn.Location = new System.Drawing.Point(20, 206);
+            this.addUserBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addUserBtn.Name = "addUserBtn";
-            this.addUserBtn.Size = new System.Drawing.Size(156, 23);
+            this.addUserBtn.Size = new System.Drawing.Size(208, 28);
             this.addUserBtn.TabIndex = 5;
             this.addUserBtn.Text = "Добавить пользователя";
             this.addUserBtn.UseVisualStyleBackColor = true;
@@ -154,9 +156,10 @@ namespace UserRegTool
             // 
             // editUserPwdBtn
             // 
-            this.editUserPwdBtn.Location = new System.Drawing.Point(345, 60);
+            this.editUserPwdBtn.Location = new System.Drawing.Point(460, 74);
+            this.editUserPwdBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.editUserPwdBtn.Name = "editUserPwdBtn";
-            this.editUserPwdBtn.Size = new System.Drawing.Size(71, 23);
+            this.editUserPwdBtn.Size = new System.Drawing.Size(95, 28);
             this.editUserPwdBtn.TabIndex = 6;
             this.editUserPwdBtn.Text = "Изменить";
             this.editUserPwdBtn.UseVisualStyleBackColor = true;
@@ -164,9 +167,10 @@ namespace UserRegTool
             // 
             // delUserBtn
             // 
-            this.delUserBtn.Location = new System.Drawing.Point(174, 376);
+            this.delUserBtn.Location = new System.Drawing.Point(232, 463);
+            this.delUserBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.delUserBtn.Name = "delUserBtn";
-            this.delUserBtn.Size = new System.Drawing.Size(165, 23);
+            this.delUserBtn.Size = new System.Drawing.Size(220, 28);
             this.delUserBtn.TabIndex = 10;
             this.delUserBtn.Text = "Удалить учетную запись";
             this.delUserBtn.UseVisualStyleBackColor = true;
@@ -174,35 +178,40 @@ namespace UserRegTool
             // 
             // registeredUsersListView
             // 
-            this.registeredUsersListView.Location = new System.Drawing.Point(15, 196);
+            this.registeredUsersListView.HideSelection = false;
+            this.registeredUsersListView.Location = new System.Drawing.Point(20, 241);
+            this.registeredUsersListView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.registeredUsersListView.Name = "registeredUsersListView";
-            this.registeredUsersListView.Size = new System.Drawing.Size(400, 174);
+            this.registeredUsersListView.Size = new System.Drawing.Size(532, 213);
             this.registeredUsersListView.TabIndex = 7;
             this.registeredUsersListView.UseCompatibleStateImageBehavior = false;
             this.registeredUsersListView.SelectedIndexChanged += new System.EventHandler(this.registeredUsersListView_SelectedIndexChanged);
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(154, 63);
+            this.passwordTextBox.Location = new System.Drawing.Point(205, 78);
+            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.PasswordChar = '*';
-            this.passwordTextBox.Size = new System.Drawing.Size(185, 20);
+            this.passwordTextBox.Size = new System.Drawing.Size(245, 22);
             this.passwordTextBox.TabIndex = 1;
             // 
             // userLoginTextBox
             // 
-            this.userLoginTextBox.Location = new System.Drawing.Point(154, 12);
+            this.userLoginTextBox.Location = new System.Drawing.Point(205, 15);
+            this.userLoginTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.userLoginTextBox.Name = "userLoginTextBox";
-            this.userLoginTextBox.Size = new System.Drawing.Size(185, 20);
+            this.userLoginTextBox.Size = new System.Drawing.Size(245, 22);
             this.userLoginTextBox.TabIndex = 0;
             // 
             // passwordLbl
             // 
             this.passwordLbl.AutoSize = true;
             this.passwordLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.passwordLbl.Location = new System.Drawing.Point(100, 63);
+            this.passwordLbl.Location = new System.Drawing.Point(133, 78);
+            this.passwordLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.passwordLbl.Name = "passwordLbl";
-            this.passwordLbl.Size = new System.Drawing.Size(48, 13);
+            this.passwordLbl.Size = new System.Drawing.Size(61, 17);
             this.passwordLbl.TabIndex = 7;
             this.passwordLbl.Text = "Пароль:";
             // 
@@ -210,17 +219,19 @@ namespace UserRegTool
             // 
             this.userNameLbl.AutoSize = true;
             this.userNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.userNameLbl.Location = new System.Drawing.Point(107, 15);
+            this.userNameLbl.Location = new System.Drawing.Point(143, 18);
+            this.userNameLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.userNameLbl.Name = "userNameLbl";
-            this.userNameLbl.Size = new System.Drawing.Size(41, 13);
+            this.userNameLbl.Size = new System.Drawing.Size(51, 17);
             this.userNameLbl.TabIndex = 6;
             this.userNameLbl.Text = "Логин:";
             // 
             // clearFieldsBtn
             // 
-            this.clearFieldsBtn.Location = new System.Drawing.Point(279, 143);
+            this.clearFieldsBtn.Location = new System.Drawing.Point(372, 176);
+            this.clearFieldsBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.clearFieldsBtn.Name = "clearFieldsBtn";
-            this.clearFieldsBtn.Size = new System.Drawing.Size(136, 23);
+            this.clearFieldsBtn.Size = new System.Drawing.Size(181, 28);
             this.clearFieldsBtn.TabIndex = 4;
             this.clearFieldsBtn.Text = "Очистить поля ввода";
             this.clearFieldsBtn.UseVisualStyleBackColor = true;
@@ -229,32 +240,36 @@ namespace UserRegTool
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 117);
+            this.label1.Location = new System.Drawing.Point(16, 144);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 13);
+            this.label1.Size = new System.Drawing.Size(177, 17);
             this.label1.TabIndex = 8;
             this.label1.Text = "Пароль действителен до:";
             // 
             // dateWhenPasswordEnds
             // 
-            this.dateWhenPasswordEnds.Location = new System.Drawing.Point(154, 117);
+            this.dateWhenPasswordEnds.Location = new System.Drawing.Point(205, 144);
+            this.dateWhenPasswordEnds.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateWhenPasswordEnds.Name = "dateWhenPasswordEnds";
-            this.dateWhenPasswordEnds.Size = new System.Drawing.Size(89, 20);
+            this.dateWhenPasswordEnds.Size = new System.Drawing.Size(117, 22);
             this.dateWhenPasswordEnds.TabIndex = 2;
             // 
             // timeWhenPasswordEnds
             // 
-            this.timeWhenPasswordEnds.Location = new System.Drawing.Point(249, 117);
+            this.timeWhenPasswordEnds.Location = new System.Drawing.Point(332, 144);
+            this.timeWhenPasswordEnds.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.timeWhenPasswordEnds.Name = "timeWhenPasswordEnds";
             this.timeWhenPasswordEnds.ShowUpDown = true;
-            this.timeWhenPasswordEnds.Size = new System.Drawing.Size(90, 20);
+            this.timeWhenPasswordEnds.Size = new System.Drawing.Size(119, 22);
             this.timeWhenPasswordEnds.TabIndex = 3;
             // 
             // blockUserPwdBtn
             // 
-            this.blockUserPwdBtn.Location = new System.Drawing.Point(12, 376);
+            this.blockUserPwdBtn.Location = new System.Drawing.Point(16, 463);
+            this.blockUserPwdBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.blockUserPwdBtn.Name = "blockUserPwdBtn";
-            this.blockUserPwdBtn.Size = new System.Drawing.Size(156, 23);
+            this.blockUserPwdBtn.Size = new System.Drawing.Size(208, 28);
             this.blockUserPwdBtn.TabIndex = 8;
             this.blockUserPwdBtn.Text = "Блокировать пароль";
             this.blockUserPwdBtn.UseVisualStyleBackColor = true;
@@ -262,9 +277,10 @@ namespace UserRegTool
             // 
             // unblockUserPwdBtn
             // 
-            this.unblockUserPwdBtn.Location = new System.Drawing.Point(12, 405);
+            this.unblockUserPwdBtn.Location = new System.Drawing.Point(16, 498);
+            this.unblockUserPwdBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.unblockUserPwdBtn.Name = "unblockUserPwdBtn";
-            this.unblockUserPwdBtn.Size = new System.Drawing.Size(156, 23);
+            this.unblockUserPwdBtn.Size = new System.Drawing.Size(208, 28);
             this.unblockUserPwdBtn.TabIndex = 9;
             this.unblockUserPwdBtn.Text = "Разблокировать пароль";
             this.unblockUserPwdBtn.UseVisualStyleBackColor = true;
@@ -272,9 +288,10 @@ namespace UserRegTool
             // 
             // editPwdEndDateBtn
             // 
-            this.editPwdEndDateBtn.Location = new System.Drawing.Point(345, 114);
+            this.editPwdEndDateBtn.Location = new System.Drawing.Point(460, 140);
+            this.editPwdEndDateBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.editPwdEndDateBtn.Name = "editPwdEndDateBtn";
-            this.editPwdEndDateBtn.Size = new System.Drawing.Size(71, 23);
+            this.editPwdEndDateBtn.Size = new System.Drawing.Size(95, 28);
             this.editPwdEndDateBtn.TabIndex = 11;
             this.editPwdEndDateBtn.Text = "Изменить";
             this.editPwdEndDateBtn.UseVisualStyleBackColor = true;
@@ -284,24 +301,27 @@ namespace UserRegTool
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(73, 89);
+            this.label2.Location = new System.Drawing.Point(97, 110);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
+            this.label2.Size = new System.Drawing.Size(98, 17);
             this.label2.TabIndex = 12;
             this.label2.Text = "Код карточки";
             // 
             // rfidcodTextBox
             // 
-            this.rfidcodTextBox.Location = new System.Drawing.Point(154, 89);
+            this.rfidcodTextBox.Location = new System.Drawing.Point(205, 110);
+            this.rfidcodTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rfidcodTextBox.Name = "rfidcodTextBox";
-            this.rfidcodTextBox.Size = new System.Drawing.Size(185, 20);
+            this.rfidcodTextBox.Size = new System.Drawing.Size(245, 22);
             this.rfidcodTextBox.TabIndex = 13;
             // 
             // editUserRfidCod
             // 
-            this.editUserRfidCod.Location = new System.Drawing.Point(344, 87);
+            this.editUserRfidCod.Location = new System.Drawing.Point(459, 107);
+            this.editUserRfidCod.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.editUserRfidCod.Name = "editUserRfidCod";
-            this.editUserRfidCod.Size = new System.Drawing.Size(71, 23);
+            this.editUserRfidCod.Size = new System.Drawing.Size(95, 28);
             this.editUserRfidCod.TabIndex = 14;
             this.editUserRfidCod.Text = "Изменить";
             this.editUserRfidCod.UseVisualStyleBackColor = true;
@@ -310,24 +330,27 @@ namespace UserRegTool
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(42, 40);
+            this.label3.Location = new System.Drawing.Point(56, 49);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(106, 13);
+            this.label3.Size = new System.Drawing.Size(135, 17);
             this.label3.TabIndex = 15;
             this.label3.Text = "Имя пользователя:";
             // 
             // userUserNameTextBox
             // 
-            this.userUserNameTextBox.Location = new System.Drawing.Point(154, 37);
+            this.userUserNameTextBox.Location = new System.Drawing.Point(205, 46);
+            this.userUserNameTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.userUserNameTextBox.Name = "userUserNameTextBox";
-            this.userUserNameTextBox.Size = new System.Drawing.Size(184, 20);
+            this.userUserNameTextBox.Size = new System.Drawing.Size(244, 22);
             this.userUserNameTextBox.TabIndex = 16;
             // 
             // editUserNameBtn
             // 
-            this.editUserNameBtn.Location = new System.Drawing.Point(345, 35);
+            this.editUserNameBtn.Location = new System.Drawing.Point(460, 43);
+            this.editUserNameBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.editUserNameBtn.Name = "editUserNameBtn";
-            this.editUserNameBtn.Size = new System.Drawing.Size(71, 23);
+            this.editUserNameBtn.Size = new System.Drawing.Size(95, 28);
             this.editUserNameBtn.TabIndex = 17;
             this.editUserNameBtn.Text = "Изменить";
             this.editUserNameBtn.UseVisualStyleBackColor = true;
@@ -335,10 +358,10 @@ namespace UserRegTool
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.ClientSize = new System.Drawing.Size(432, 494);
+            this.ClientSize = new System.Drawing.Size(576, 608);
             this.Controls.Add(this.editUserNameBtn);
             this.Controls.Add(this.userUserNameTextBox);
             this.Controls.Add(this.label3);
@@ -361,6 +384,7 @@ namespace UserRegTool
             this.Controls.Add(this.editUserPwdBtn);
             this.Controls.Add(this.addUserBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

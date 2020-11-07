@@ -17,8 +17,9 @@ d:\Distributiv\NewSceenSaver\Authentificator\bin\Debug\Authentificator.pdb
 d:\Distributiv\NewSceenSaver\Authentificator\obj\Debug\Authentificator.dll
 d:\Distributiv\NewSceenSaver\Authentificator\obj\Debug\Authentificator.pdb
 D:\Distributiv\NewSceenSaver\Authentificator\obj\Debug\Authentificator.csprojResolveAssemblyReference.cache
-d:\Distr\NewSceenSaver\Authentificator\bin\Debug\Authentificator.dll
-d:\Distr\NewSceenSaver\Authentificator\bin\Debug\Authentificator.pdb
-d:\Distr\NewSceenSaver\Authentificator\obj\Debug\Authentificator.csproj.CoreCompileInputs.cache
-d:\Distr\NewSceenSaver\Authentificator\obj\Debug\Authentificator.dll
-d:\Distr\NewSceenSaver\Authentificator\obj\Debug\Authentificator.pdb
+D:\Distr\NewSceenSaver\Authentificator\bin\Debug\Authentificator.dll
+D:\Distr\NewSceenSaver\Authentificator\bin\Debug\Authentificator.pdb
+D:\Distr\NewSceenSaver\Authentificator\obj\Debug\Authentificator.csproj.CoreCompileInputs.cache
+D:\Distr\NewSceenSaver\Authentificator\obj\Debug\Authentificator.dll
+D:\Distr\NewSceenSaver\Authentificator\obj\Debug\Authentificator.pdb
+D:\Distr\NewSceenSaver\Authentificator\obj\Debug\Authentificator.csprojAssemblyReference.cache

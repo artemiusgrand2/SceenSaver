@@ -115,7 +115,7 @@ namespace UserRegTool
                 }
                 // Пытаемся создать экземпляр класса, предназначенного для работы с аутентификационными данными пользователей
                 // ----------------------------------------------------------------------------------------------------------
-                _auth = new Authentificators(_userAuthentDataFilePath, Authentificators.AuthertificatorActions.All);
+                _auth = new Authentificators(_userAuthentDataFilePath, Authentificators.AuthertificatorActions.All, string.Empty, string.Empty);
 
             } // try
             catch (Exception _ex)
@@ -422,14 +422,16 @@ namespace UserRegTool
 
                 if (_selectedItems.Count > 0)
                 {
-                    this.userLoginTextBox.Text = _selectedItems[0].Name;
 
-                    DateTime _dt = Convert.ToDateTime(_selectedItems[0].SubItems[1].Text);
+                    this.userUserNameTextBox.Text = _selectedItems[0].SubItems[1].Text;
+                    this.userLoginTextBox.Text = _selectedItems[0].SubItems[0].Text;
+
+                    DateTime _dt = Convert.ToDateTime(_selectedItems[0].SubItems[2].Text);
 
                     this.dateWhenPasswordEnds.Value = _dt;
                     this.timeWhenPasswordEnds.Value = _dt;
 
-                    this.blockUserPwdBtn.Enabled = !Convert.ToBoolean(_selectedItems[0].SubItems[2].Text); // Разрешение/запрет блокировки пароля
+                    this.blockUserPwdBtn.Enabled = !Convert.ToBoolean(_selectedItems[0].SubItems[3].Text); // Разрешение/запрет блокировки пароля
                     this.unblockUserPwdBtn.Enabled = !this.blockUserPwdBtn.Enabled; // Разрешение/запрет разблокировки пароля
 
                 } // if
