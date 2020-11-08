@@ -631,7 +631,8 @@ namespace NewScreenSaver
         {
             _modelView.Login = String.Empty;
             passwordBox.Password = String.Empty;
-            loginCombo.Focus();
+           // loginCombo.Focus();
+          
             // Сохраняем сообщение об успешной аутентификации в LOG-файле
             SaveMessInFile(DateTime.Now.ToString() + ": Аутентификация прошла успешно","HideWindow", "551");
             isAuth = true;
@@ -642,6 +643,8 @@ namespace NewScreenSaver
             {
                  actHook.Stop();
                 authTimer_Closetaskmgr.Stop();
+                System.Windows.Forms.InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(new System.Globalization.CultureInfo("ru-RU"));
+                button_language.Content = System.Windows.Forms.InputLanguage.CurrentInputLanguage.Culture.ThreeLetterISOLanguageName.ToUpper();
             } // try
             catch (Exception _ex)
             {
@@ -796,7 +799,7 @@ namespace NewScreenSaver
             _modelView.Login = string.Empty;
             passwordBox.Password = string.Empty;
             authAttemp = 0;
-            InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(new System.Globalization.CultureInfo("en-US"));
+          
             //Запускаем таймер, который не дает запустить диспетчер задач
             authTimer_Closetaskmgr.Start();
             // Переводим главное окно приложения в режим работы с пользователем
@@ -836,6 +839,10 @@ namespace NewScreenSaver
                 } // if
                 else
                     actHook.Start();
+                //
+                InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(new System.Globalization.CultureInfo("en-US"));
+                button_language.Content = System.Windows.Forms.InputLanguage.CurrentInputLanguage.Culture.ThreeLetterISOLanguageName.ToUpper();
+                loginCombo.Focus();
 
             } // try
             catch (Exception _ex)
