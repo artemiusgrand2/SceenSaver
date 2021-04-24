@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\Distr\NewSceenSaver\NewSceenSaver\obj\x86\Debug\
+d:\Distr\SceenSaver\NewSceenSaver\obj\x86\Debug\
 NewScreenSaver
 none
 false
 DEBUG;TRACE
-D:\Distr\NewSceenSaver\NewSceenSaver\App.xaml
+d:\Distr\SceenSaver\NewSceenSaver\App.xaml
 2-733691724
 
 24495125368
-191020975100
+191509984116
 MainWindow.xaml;Themes\ExpressionLight.xaml;
 
 False

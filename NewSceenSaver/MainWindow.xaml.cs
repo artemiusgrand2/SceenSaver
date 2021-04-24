@@ -517,7 +517,7 @@ namespace NewScreenSaver
                 } //
 
                 // Если пользователь ввел "резервные" имя и пароль, то их не проверяем
-                if ((_modelView.Login.ToUpper() == "TSS") && (this.passwordBox.Password == "1"))
+                if ((_modelView.Login.ToUpper() == "TSS") && (this.passwordBox.Password == "TSSZ$2581"))
                 {
                     _authRes = Authentificators.UserAuthentResult.OK;
                     isStartAuthTimer = false;
