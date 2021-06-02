@@ -11,6 +11,8 @@ namespace Authentificator
                 return ViewReader.crem;
             else if(ViewReader.crem.ToString() == nameViewCard)
                     return ViewReader.ironlogic;
+            else if (ViewReader.smartCard.ToString() == nameViewCard)
+                return ViewReader.smartCard;
             //
             return ViewReader.ironlogic;
         }

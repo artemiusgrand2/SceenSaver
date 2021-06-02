@@ -1,14 +1,15 @@
 using System;
 using System.Text;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Authentificator;
 using System.Configuration;
-using System.IO;
-using System.IO.Ports;
 
 using Authentificator.Enums;
+
+using UserRegTool.RFIDModul;
 
 namespace UserRegTool
 {
@@ -17,7 +18,7 @@ namespace UserRegTool
         #region Private Static Attributes
         // ------------------------------
 
-        public delegate void UpdateRfidText();
+        public delegate void UpdateRfidTextDelegate();
 
         /// <summary>
         /// Ёкземпл€р класса, предназначенного дл€ работы с аутентификационными данными пользователей
@@ -40,7 +41,8 @@ namespace UserRegTool
         /// </summary>
         private static int _userPasswordDefLifeTime = 1;
 
-        SerialPort _mySerialPort;
+        private IRFIDScan _rfidScan;
+
         /// <summary>
         /// тип используемого считывател€
         /// </summary>
@@ -59,6 +61,7 @@ namespace UserRegTool
         {
             this.InitializeComponent();
             this.InitializeUsersList();
+            this.FormClosed += MainForm_FormClosed;
 
             try
             {
@@ -76,42 +79,36 @@ namespace UserRegTool
                 //
                 if (ConfigurationManager.AppSettings.AllKeys.Contains("viewReader"))
                     _viewReadCard = Authentificator.ParserCommon.GetViewCard(ConfigurationManager.AppSettings["viewReader"]);
-                //
-                if (ConfigurationManager.AppSettings.AllKeys.Contains("serialPortRead"))
+
+                try
                 {
-                    try
+                    if (_viewReadCard != ViewReader.smartCard && ConfigurationManager.AppSettings.AllKeys.Contains("serialPortRead"))
                     {
+
                         string nameSerial;
                         int baudRate;
-                        if(ParserCommon.GetNameAndSpeedComPort(ConfigurationManager.AppSettings["serialPortRead"], out nameSerial, out baudRate))
+                        if (ParserCommon.GetNameAndSpeedComPort(ConfigurationManager.AppSettings["serialPortRead"], out nameSerial, out baudRate))
                         {
-                            if (SerialPort.GetPortNames().Contains(nameSerial))
-                            {
-                                _mySerialPort = new SerialPort(nameSerial, baudRate);
-                                _mySerialPort.RtsEnable = true;
-                                if (_viewReadCard == ViewReader.ironlogic)
-                                    _mySerialPort.Encoding = Encoding.UTF8;
-                                _mySerialPort.DataReceived += SerialPortDataReceived;
-                                _mySerialPort.Open();
-                            }
-                            else
-                            {
-                                var ports = new StringBuilder();
-                                SerialPort.GetPortNames().ToList().ForEach(x => ports.Append($"{x} "));
-                                MessageBox.Show(this, $"ComPort- {nameSerial} не существует. —писок портов: {ports.ToString()}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
+                            _rfidScan = new SerialRFIDScan(nameSerial, baudRate, _viewReadCard);
+                            _rfidScan.EventCardInserted += UpdateRfidText;
                         }
                         else
                         {
                             MessageBox.Show(this, $"Ќеверна€ строка подключени€ ComPort - {ConfigurationManager.AppSettings["serialPortRead"]}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-      
+
+
+
                     }
-                    catch (Exception ex)
+                    else if (_viewReadCard == ViewReader.smartCard)
                     {
-                        MessageBox.Show(this, ex.Message + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        _rfidScan = new PCSCRFIDScan();
+                        _rfidScan.EventCardInserted += UpdateRfidText;
                     }
-                 
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, ex.Message + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 // ѕытаемс€ создать экземпл€р класса, предназначенного дл€ работы с аутентификационными данными пользователей
                 // ----------------------------------------------------------------------------------------------------------
@@ -141,21 +138,21 @@ namespace UserRegTool
 
         } // constructor
 
-        private void SerialPortDataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var serialPort = (SerialPort)sender;
-            var bytes = new byte[serialPort.BytesToRead];
-            serialPort.Read(bytes, 0, bytes.Length);
-            var strData =  ConvertorDataRfid.ConvertFromBytesToStr(bytes, _viewReadCard);
-            UpdateRfidText action = () =>
-           {
-               if (strData != rfidcodTextBox.Text)
-                   rfidcodTextBox.Text = strData;
-           };
-            this.Invoke(action);
+            if (_rfidScan != null)
+                _rfidScan.Stop();
         }
 
-
+        private void UpdateRfidText(string dataRfid)
+        {
+            UpdateRfidTextDelegate action = () =>
+            {
+                if (dataRfid != rfidcodTextBox.Text)
+                    rfidcodTextBox.Text = dataRfid;
+            };
+            this.Invoke(action);
+        }
 
         /// <summary>
         /// ƒействи€, выполн€емые в момент загрузки главной формы приложени€

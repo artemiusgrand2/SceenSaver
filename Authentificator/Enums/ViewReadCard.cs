@@ -3,6 +3,7 @@
     public enum ViewReader
     {
         ironlogic = 0,
-        crem
+        crem,
+        smartCard
     }
 }

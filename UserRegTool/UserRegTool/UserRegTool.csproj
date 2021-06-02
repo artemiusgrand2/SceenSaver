@@ -51,6 +51,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PCSC">
+      <HintPath>C:\Users\User\source\repos\pcsc\packages\PCSC.5.0.0\lib\net40\PCSC.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -68,6 +71,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RFIDModul\IRFIDScan.cs" />
+    <Compile Include="RFIDModul\PCSCRFIDScan.cs" />
+    <Compile Include="RFIDModul\SerialRFIDScan.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
