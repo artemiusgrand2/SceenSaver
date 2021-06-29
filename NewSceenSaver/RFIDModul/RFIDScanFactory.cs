@@ -19,6 +19,10 @@ namespace NewScreenSaver.RFIDModul
                     {
                         return new RFIDScanCrem(baudRate, auth);
                     }
+                case ViewReader.smartCard:
+                    {
+                        return new RFIDScanSmartCard(auth);
+                    }
                 default:
                     return new RFIDScanIronLogic(baudRate, auth, cardOn);
             }

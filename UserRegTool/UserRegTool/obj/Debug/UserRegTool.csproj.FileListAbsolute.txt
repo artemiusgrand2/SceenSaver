@@ -52,3 +52,16 @@ d:\Distr\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.pdb
 d:\Distr\SceenSaver\UserRegTool\UserRegTool\bin\Debug\PCSC.dll
 d:\Distr\SceenSaver\UserRegTool\UserRegTool\bin\Debug\PCSC.pdb
 d:\Distr\SceenSaver\UserRegTool\UserRegTool\bin\Debug\PCSC.xml
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\bin\Debug\UserRegTool.exe.config
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\bin\Debug\UserRegTool.exe
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\bin\Debug\UserRegTool.pdb
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\bin\Debug\Authentificator.dll
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\bin\Debug\Authentificator.pdb
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.csprojAssemblyReference.cache
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.MainForm.resources
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.Properties.Resources.resources
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.csproj.GenerateResource.cache
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.csproj.CoreCompileInputs.cache
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.csproj.CopyComplete
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.exe
+d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.pdb

@@ -119,7 +119,7 @@ namespace NewScreenSaver.Models
         public void Initialization(RFIDScanBase rfid, Dispatcher dispatcher)
         {
             this._rfid = rfid;
-            rfid.ConnectComPort +=
+            rfid.ConnectDevice +=
                 (status) => { OnPropertyChanged("IsOpen"); };
             //dispatcher.Invoke(DispatcherPriority.Render,
             //                                          new Action(() =>

@@ -21,8 +21,6 @@ namespace NewScreenSaver.RFIDModul
     public abstract class RFIDScanBase 
     {
         #region Переменные и свойства
-
-        protected SerialPort _serialPort;
         /// <summary>
         /// закрыт ли порт
         /// </summary>
@@ -37,8 +35,8 @@ namespace NewScreenSaver.RFIDModul
             protected set
             {
                 _isOpen = value;
-                if (ConnectComPort != null)
-                    ConnectComPort(_isOpen);
+                if (ConnectDevice != null)
+                    ConnectDevice(_isOpen);
             }
         }
 
@@ -77,11 +75,10 @@ namespace NewScreenSaver.RFIDModul
         /// </summary>
         protected ViewReader _viewReader;
 
-        protected IList<string> bufferNameComPorts = new List<string>();
         /// <summary>
         ///есть ли связь с Com port
         /// </summary>
-        public event StatusConnectComPort ConnectComPort;
+        public event StatusConnectComPort ConnectDevice;
         /// <summary>
         /// событие авторизации
         /// </summary>
@@ -89,11 +86,9 @@ namespace NewScreenSaver.RFIDModul
 
         #endregion
 
-        public RFIDScanBase(int baudRate, Authentificators auth)
+        public RFIDScanBase(Authentificators auth)
         {
             this._auth = auth;
-            _serialPort = new SerialPort() { ReadTimeout = 500, BaudRate = baudRate};
-            bufferNameComPorts.Add(_serialPort.PortName);
             _timerScan = new Timer(100);
             _timerScan.Elapsed+=timerCom_Elapsed;
         }
@@ -105,27 +100,7 @@ namespace NewScreenSaver.RFIDModul
 
         public void Stop()
         {
-            try
-            {
-                _serialPort.Close();
-            }
-            catch { };
             _timerScan.Stop();
-        }
-
-        protected void RenameComPort()
-        {
-            var newName = SerialPort.GetPortNames().Where(x => !bufferNameComPorts.Contains(x)).FirstOrDefault();
-            if (string.IsNullOrEmpty(newName))
-            {
-                bufferNameComPorts.Clear();
-              //  RenameComPort();
-            }
-            else
-            {
-                _serialPort.PortName = newName;
-                bufferNameComPorts.Add(newName);
-            }
         }
 
         protected abstract void Scan();

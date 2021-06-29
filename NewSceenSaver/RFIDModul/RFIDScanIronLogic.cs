@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using System.IO.Ports;
 
 using Authentificator;
 using Authentificator.Enums;
 
 namespace NewScreenSaver.RFIDModul
 {
-    public class RFIDScanIronLogic : RFIDScanBase
+    public class RFIDScanIronLogic : RFIDScanSerialBase
     {
         /// <summary>
         /// флаг изъятия карточки
@@ -37,7 +36,7 @@ namespace NewScreenSaver.RFIDModul
         {
             try
             {
-                if (SerialPort.GetPortNames().Contains(_serialPort.PortName))
+                if (CheckNameComPorts(_serialPort.PortName))
                 {
                     if (!IsOpen)
                     {

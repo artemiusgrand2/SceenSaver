@@ -1,0 +1,6 @@
+D:\Distributiv\SceenSaver\Authentificator\bin\Release\Authentificator.dll
+D:\Distributiv\SceenSaver\Authentificator\bin\Release\Authentificator.pdb
+D:\Distributiv\SceenSaver\Authentificator\obj\Release\Authentificator.csprojAssemblyReference.cache
+D:\Distributiv\SceenSaver\Authentificator\obj\Release\Authentificator.csproj.CoreCompileInputs.cache
+D:\Distributiv\SceenSaver\Authentificator\obj\Release\Authentificator.dll
+D:\Distributiv\SceenSaver\Authentificator\obj\Release\Authentificator.pdb

@@ -13,6 +13,7 @@ namespace Authentificator
         {
             switch (viewReader)
             {
+                case ViewReader.smartCard:
                 case ViewReader.crem:
                     {
                         var strBuilder = new StringBuilder();
@@ -34,6 +35,7 @@ namespace Authentificator
         {
             switch (viewReader)
             {
+                case ViewReader.smartCard:
                 case ViewReader.crem:
                     {
                         var bytes = new List<byte>();

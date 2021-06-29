@@ -28,3 +28,8 @@ d:\Distr\SceenSaver\Authentificator\obj\Debug\Authentificator.csprojAssemblyRefe
 d:\Distr\SceenSaver\Authentificator\obj\Debug\Authentificator.csproj.CoreCompileInputs.cache
 d:\Distr\SceenSaver\Authentificator\obj\Debug\Authentificator.dll
 d:\Distr\SceenSaver\Authentificator\obj\Debug\Authentificator.pdb
+D:\Distributiv\SceenSaver\Authentificator\bin\Debug\Authentificator.dll
+D:\Distributiv\SceenSaver\Authentificator\bin\Debug\Authentificator.pdb
+D:\Distributiv\SceenSaver\Authentificator\obj\Debug\Authentificator.csproj.CoreCompileInputs.cache
+D:\Distributiv\SceenSaver\Authentificator\obj\Debug\Authentificator.dll
+D:\Distributiv\SceenSaver\Authentificator\obj\Debug\Authentificator.pdb

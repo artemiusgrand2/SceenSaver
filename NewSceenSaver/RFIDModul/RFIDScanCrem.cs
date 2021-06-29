@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using System.IO.Ports;
 
 using Authentificator;
 using Authentificator.Enums;
 
 namespace NewScreenSaver.RFIDModul
 {
-    public class RFIDScanCrem : RFIDScanBase
+    public class RFIDScanCrem : RFIDScanSerialBase
     {
 
         private DateTime _lastReadData;
@@ -25,7 +24,7 @@ namespace NewScreenSaver.RFIDModul
         {
             try
             {
-                if (SerialPort.GetPortNames().Contains(_serialPort.PortName))
+                if (CheckNameComPorts(_serialPort.PortName))
                 {
                     if (!IsOpen)
                     {
@@ -60,7 +59,7 @@ namespace NewScreenSaver.RFIDModul
             RenameComPort();
         }
 
-        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void SerialPort_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             if (IsOpen)
             {
