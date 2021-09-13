@@ -7,6 +7,7 @@ using PCSC;
 using PCSC.Exceptions;
 using PCSC.Monitoring;
 using PCSC.Utils;
+using PCSC.Iso7816;
 
 using Authentificator;
 using Authentificator.Enums;
@@ -18,6 +19,8 @@ namespace NewScreenSaver.RFIDModul
     public class RFIDScanSmartCard : RFIDScanBase
     {
         ISCardMonitor _monitor = null;
+        SCardReader _reader;
+        SCardContext _context;
         SCRState _currStat;
 
         public SCRState CurrStat
@@ -52,16 +55,30 @@ namespace NewScreenSaver.RFIDModul
 
         private void Close()
         {
-            if (_monitor != null)
+            try
             {
-                _monitor.Cancel();
-                _monitor.Dispose();
+                if (_reader != null)
+                    _reader.Dispose();
+                //
+                if (_monitor != null)
+                {
+                    _monitor.Cancel();
+                    _monitor.Dispose();
+                }
+                //
+                if (_context != null)
+                    _context.Dispose();
             }
+            catch (Exception) { }
         }
 
         private void Initialization()
         {
             Close();
+
+            _context = new SCardContext();
+            _context.Establish(SCardScope.System);
+            _reader = new SCardReader(_context);
             var readerNames = GetReaderNames();
             //
             if (!IsEmpty(readerNames))
@@ -76,10 +93,7 @@ namespace NewScreenSaver.RFIDModul
         {
             try
             {
-                using (var context = ContextFactory.Instance.Establish(SCardScope.System))
-                {
-                    return context.GetReaders();
-                }
+                return _context.GetReaders();
             }
             catch(Exception error)
             {
@@ -101,21 +115,22 @@ namespace NewScreenSaver.RFIDModul
 
         private void Monitor_StatusChanged(object sender, StatusChangeEventArgs e)
         {
-            AnalisStateReader(e.NewState, e.Atr);
+            AnalisStateReader(e.NewState, e.ReaderName);
         }
 
         private void CardEvent(StatusSmartCard statusCard, CardStatusEventArgs cardEvent)
         {
-            AnalisStateReader(cardEvent.State, cardEvent.Atr);
+            AnalisStateReader(cardEvent.State, cardEvent.ReaderName);
         }
 
-        private void AnalisStateReader(SCRState state, byte[] atr)
+        private void AnalisStateReader(SCRState state, string readerName)
         {
             CurrStat = state;
             if ((SCRState)((int)state & 63) == SCRState.Present)
             {
                 string login;
-                if (_auth.Authenticate(Encoding.Unicode.GetString(atr ?? new byte[0]), out login, _viewReader) == Authentificators.UserAuthentResult.OK)
+                var uId = GetUID(readerName);
+                if (_auth.Authenticate(Encoding.Unicode.GetString(uId), out login, _viewReader) == Authentificators.UserAuthentResult.OK)
                 {
                     if (!IsAuthorization)
                     {
@@ -126,12 +141,41 @@ namespace NewScreenSaver.RFIDModul
                 else
                 {
                     IsAuthorization = false;
-                    MainWindow.SaveMessInFile($"{DateTime.Now.ToString()} Неизвестный пользовтель: {ConvertorDataRfid.ConvertFromBytesToStr(atr ?? new byte[0], _viewReader)}", "", "");
+                    MainWindow.SaveMessInFile($"{DateTime.Now.ToString()} Неизвестный пользовтель: {ConvertorDataRfid.ConvertFromBytesToStr(uId, _viewReader)}", "", "");
 
                 }
             }
             else
                 IsAuthorization = false;
+        }
+
+        private byte[] GetUID(String readerName)
+        {
+            byte[] uid = new byte[0];
+            try
+            {
+                if (_reader.Connect(readerName, SCardShareMode.Shared, SCardProtocol.Any) == SCardError.Success)
+                {
+                    var apdu = new CommandApdu(IsoCase.Case2Short, _reader.ActiveProtocol)
+                    {
+                        CLA = 0xFF,
+                        Instruction = InstructionCode.GetData,
+                        P1 = 0x00,
+                        P2 = 0x00,
+                        Le = 0x00
+                    };
+                    //
+                    _reader.BeginTransaction();
+                    var receiveBuffer = new byte[6];
+                    var answeCom = _reader.Transmit(apdu.ToArray(), ref receiveBuffer);
+                    if (answeCom == SCardError.Success)
+                        uid = receiveBuffer;
+                    _reader.EndTransaction(SCardReaderDisposition.Leave);
+                    _reader.Disconnect(SCardReaderDisposition.Reset);
+                }
+            }
+            catch { }
+            return uid;
         }
 
         protected override void Scan()

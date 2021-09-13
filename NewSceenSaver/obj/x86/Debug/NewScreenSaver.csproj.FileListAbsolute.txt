@@ -83,3 +83,8 @@ D:\Distributiv\SceenSaver\NewSceenSaver\obj\x86\Debug\NewScreenSaver.csproj.Core
 D:\Distributiv\SceenSaver\NewSceenSaver\obj\x86\Debug\NewScreenSaver.csproj.CopyComplete
 D:\Distributiv\SceenSaver\NewSceenSaver\obj\x86\Debug\NewScreenSaver.exe
 D:\Distributiv\SceenSaver\NewSceenSaver\obj\x86\Debug\NewScreenSaver.pdb
+D:\Distributiv\SceenSaver\NewSceenSaver\bin\Debug\PCSC.Iso7816.dll
+D:\Distributiv\SceenSaver\NewSceenSaver\bin\Debug\PCSC.pdb
+D:\Distributiv\SceenSaver\NewSceenSaver\bin\Debug\PCSC.xml
+D:\Distributiv\SceenSaver\NewSceenSaver\bin\Debug\PCSC.Iso7816.pdb
+D:\Distributiv\SceenSaver\NewSceenSaver\bin\Debug\PCSC.Iso7816.xml

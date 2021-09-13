@@ -65,3 +65,9 @@ d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.csproj.C
 d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.csproj.CopyComplete
 d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.exe
 d:\Distributiv\SceenSaver\UserRegTool\UserRegTool\obj\Debug\UserRegTool.pdb
+D:\Distributiv\SceenSaver\UserRegTool\UserRegTool\bin\Debug\PCSC.dll
+D:\Distributiv\SceenSaver\UserRegTool\UserRegTool\bin\Debug\PCSC.Iso7816.dll
+D:\Distributiv\SceenSaver\UserRegTool\UserRegTool\bin\Debug\PCSC.pdb
+D:\Distributiv\SceenSaver\UserRegTool\UserRegTool\bin\Debug\PCSC.xml
+D:\Distributiv\SceenSaver\UserRegTool\UserRegTool\bin\Debug\PCSC.Iso7816.pdb
+D:\Distributiv\SceenSaver\UserRegTool\UserRegTool\bin\Debug\PCSC.Iso7816.xml

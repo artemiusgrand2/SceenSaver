@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 using PCSC;
 using PCSC.Exceptions;
 using PCSC.Monitoring;
 using PCSC.Utils;
+using PCSC.Iso7816;
 
 using Authentificator;
 using Authentificator.Enums;
@@ -19,12 +21,14 @@ namespace UserRegTool.RFIDModul
         public event CardInsertedDelegate EventCardInserted;
         System.Threading.Thread _threadScan;
         bool _isStop = false;
+        SCardReader _reader;
+        SCardContext _context;
 
         public bool IsOpen
         {
             get
             {
-                return !((_currStat == (SCRState.Ignore | SCRState.Unavailable) || _currStat == SCRState.Ignore || _currStat == SCRState.Unaware));    
+                return !((_currStat == (SCRState.Ignore | SCRState.Unavailable) || _currStat == SCRState.Ignore || _currStat == SCRState.Unaware));
             }
         }
 
@@ -45,16 +49,30 @@ namespace UserRegTool.RFIDModul
 
         private void Close()
         {
-            if (_monitor != null)
+            try
             {
-                _monitor.Cancel();
-                _monitor.Dispose();
+                if (_reader != null)
+                    _reader.Dispose();
+                //
+                if (_monitor != null)
+                {
+                    _monitor.Cancel();
+                    _monitor.Dispose();
+                }
+                //
+                if (_context != null)
+                    _context.Dispose();
             }
+            catch (Exception) { }
         }
 
         private void Init()
         {
             Close();
+
+            _context = new SCardContext();
+            _context.Establish(SCardScope.System);
+            _reader = new SCardReader(_context);
             var readerNames = GetReaderNames();
             //
             if (!IsEmpty(readerNames))
@@ -81,10 +99,7 @@ namespace UserRegTool.RFIDModul
         {
             try
             {
-                using (var context = ContextFactory.Instance.Establish(SCardScope.System))
-                {
-                    return context.GetReaders();
-                }
+                return _context.GetReaders();
             }
             catch { }
             //
@@ -109,8 +124,44 @@ namespace UserRegTool.RFIDModul
         private void DisplayEvent(string eventName, CardStatusEventArgs unknown)
         {
             _currStat = unknown.State;
-            if (EventCardInserted != null)
-                EventCardInserted(ConvertorDataRfid.ConvertFromBytesToStr((unknown.Atr ?? new byte[0]), ViewReader.smartCard));
+
+            if (unknown.Atr != null && unknown.Atr.Length > 0)
+            {
+                if (EventCardInserted != null)
+                    EventCardInserted(ConvertorDataRfid.ConvertFromBytesToStr(GetUID(unknown.ReaderName), ViewReader.smartCard));
+            }
+
+        }
+    
+
+        private byte[] GetUID(String readerName)
+        {
+            byte[] uid = new byte[0];
+            try
+            {
+                if (_reader.Connect(readerName, SCardShareMode.Shared, SCardProtocol.Any) == SCardError.Success)
+                {
+                    var apdu = new CommandApdu(IsoCase.Case2Short, _reader.ActiveProtocol)
+                    {
+                        CLA = 0xFF,
+                        Instruction = InstructionCode.GetData,
+                        P1 = 0x00,
+                        P2 = 0x00,
+                        Le = 0x00
+                    };
+                    //
+                    _reader.BeginTransaction();
+                    var receiveBuffer = new byte[6];
+                    var answeCom = _reader.Transmit(apdu.ToArray(), ref receiveBuffer);
+                    if (answeCom == SCardError.Success)
+                        uid = receiveBuffer;
+                    _reader.EndTransaction(SCardReaderDisposition.Leave);
+                    _reader.Disconnect(SCardReaderDisposition.Reset);
+                    
+                }
+            }
+            catch { }
+            return uid;
         }
     }
 }
