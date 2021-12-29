@@ -33,10 +33,29 @@ namespace NewScreenSaver
         /// </summary>
         bool cardOn = true;
         private int number_language = 0;
+
+
+        private  DateTime _lastUpdateAuthOtherComp;
+        private  DateTime _lastResetTenLock = DateTime.Now;
+        private  DateTime _lastAllLock;
+        private  int _countLock = 0;
+        private TimeSpan _periodLock = new TimeSpan(0, 60, 0);
+        private static bool _isAuth = false;
+        //private 
         /// <summary>
         /// произошла ли авторизация RFID
         /// </summary>
-        public static bool isAuth { get; set; }
+        public static bool IsAuth
+        {
+            get
+            {
+                return _isAuth;
+            }
+            private set
+            {
+                _isAuth = value;
+            }
+        }
         /// <summary>
         /// сканер RFID
         /// </summary>
@@ -207,6 +226,13 @@ namespace NewScreenSaver
                 // The lifetime cannot be less then 0!
                 if (userPasswordDefLifeTime < 0)
                     userPasswordDefLifeTime = 0;
+                //период блокировки при частом моргании
+                if (ConfigurationManager.AppSettings.AllKeys.Contains("periodLock"))
+                {
+                    int bufferPeriodLock;
+                    if (int.TryParse(ConfigurationManager.AppSettings["periodLock"], out bufferPeriodLock) && bufferPeriodLock > 0)
+                        _periodLock = new TimeSpan(0, bufferPeriodLock, 0);
+                }
                 //
                 string hostname = "127.0.0.1";
                 int port = 2002;
@@ -339,16 +365,39 @@ namespace NewScreenSaver
 
 
 
-        private void UpdateStatusAuthorization(bool status)
+        private void UpdateStatusAuthorization(bool status, bool otherComp)
         {
             Dispatcher.Invoke(new Action(() =>
             {
                 try
                 {
-                    if(isAuth != status)
+                    if(IsAuth != status)
                     {
-                        isAuth = status;
-
+                        IsAuth = status;
+                        if ((DateTime.Now - _lastAllLock) <= _periodLock)
+                            return;
+                        if (_countLock == 0)
+                            _lastResetTenLock = DateTime.Now;
+                        //
+                        _countLock++;
+                        if (_countLock == 10)
+                        {
+                            _countLock = 0;
+                            if ((DateTime.Now - _lastResetTenLock).TotalSeconds <= 5)
+                            {
+                                _lastAllLock = DateTime.Now;
+                                status = true;
+                            }
+                            //
+                            _lastResetTenLock = DateTime.Now;
+                        }
+                        //if (otherComp)
+                        //{
+                        //    if ((DateTime.Now - _lastUpdateAuthOtherComp).TotalSeconds <= 2)
+                        //        return;
+                        //    _lastUpdateAuthOtherComp = DateTime.Now;
+                        //}
+                        //
                         if (status)
                         {
                             if (taskbarIcon.Visibility == System.Windows.Visibility.Hidden)
@@ -635,9 +684,9 @@ namespace NewScreenSaver
           
             // Сохраняем сообщение об успешной аутентификации в LOG-файле
             SaveMessInFile(DateTime.Now.ToString() + ": Аутентификация прошла успешно","HideWindow", "551");
-            isAuth = true;
+            IsAuth = true;
             if (OtherScreen != null)
-                OtherScreen.SendCommand(isAuth);
+                OtherScreen.SendCommand(IsAuth);
             // Если перехват ввода-вывода клавиатуры и мыши остановить не удается, то приложение немедленно завершаем
             try
             {
@@ -751,9 +800,9 @@ namespace NewScreenSaver
         {
             // Останавливаем таймер (он будет запущен, когда пользователь успешно аутентифицируется)
             authTimer.Stop();
-            isAuth = false;
+            IsAuth = false;
             if (OtherScreen != null)
-                OtherScreen.SendCommand(isAuth);
+                OtherScreen.SendCommand(IsAuth);
             // Передаем управление основному потоку (т.к. если делать перехват событий клавиатуры и мыши здесь, то ничего не получится)
             Dispatcher.Invoke(new HookEventHandler(SetHook));
 

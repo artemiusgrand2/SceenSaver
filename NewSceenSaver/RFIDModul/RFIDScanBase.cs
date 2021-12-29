@@ -14,7 +14,7 @@ using NewScreenSaver.Enums;
 namespace NewScreenSaver.RFIDModul
 {
 
-    public delegate void StatusAuthorization(bool status);
+    public delegate void StatusAuthorization(bool status, bool otherComp);
 
     public delegate void StatusConnectComPort(bool status);
 
@@ -54,7 +54,7 @@ namespace NewScreenSaver.RFIDModul
                 {
                     _isAuthorization = value;
                     if (Authorization != null)
-                        Authorization(_isAuthorization);
+                        Authorization(_isAuthorization, false);
                 }
             }
         }

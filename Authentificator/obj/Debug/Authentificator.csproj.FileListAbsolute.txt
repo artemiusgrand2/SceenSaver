@@ -33,4 +33,4 @@ D:\Distributiv\SceenSaver\Authentificator\bin\Debug\Authentificator.pdb
 D:\Distributiv\SceenSaver\Authentificator\obj\Debug\Authentificator.csproj.CoreCompileInputs.cache
 D:\Distributiv\SceenSaver\Authentificator\obj\Debug\Authentificator.dll
 D:\Distributiv\SceenSaver\Authentificator\obj\Debug\Authentificator.pdb
-d:\Distributiv\SceenSaver\Authentificator\obj\Debug\Authentificator.csprojAssemblyReference.cache
+D:\Distributiv\SceenSaver\Authentificator\obj\Debug\Authentificator.csprojAssemblyReference.cache

@@ -98,7 +98,7 @@ namespace NewScreenSaver.OtherScreens
                                 if (message.MessageType == MessageView.answer)
                                 {
                                     if (IsAuthorization != null)
-                                        IsAuthorization(message.Locked);
+                                        IsAuthorization(message.Locked, true);
                                 }
                             }
                             //
@@ -116,7 +116,7 @@ namespace NewScreenSaver.OtherScreens
                     //если произошла ошибка связи блокируем экран
                     //блокируем экран
                     if (IsAuthorization != null)
-                        IsAuthorization(true);
+                        IsAuthorization(true, true);
                 }
             }
         }

@@ -96,7 +96,7 @@ namespace NewScreenSaver.OtherScreens
                                             {
                                                 //if (MainWindow.ViewServer == ViewServer.haveRFID)
                                                 //{
-                                                    byte[] answer = new Protokol().ToBytes(new Message(MessageView.answer, MainWindow.isAuth));
+                                                    byte[] answer = new Protokol().ToBytes(new Message(MessageView.answer, MainWindow.IsAuth));
                                                     stream.Write(answer, 0, answer.Length);
                                                 //}
                                                 //else
@@ -109,7 +109,7 @@ namespace NewScreenSaver.OtherScreens
                                                 //{
                                                 LastCommand = DateTime.Now;
                                                 if (IsAuthorization != null)
-                                                    IsAuthorization(message.Locked);
+                                                    IsAuthorization(message.Locked, true);
                                                 //}
                                             }
                                             break;
